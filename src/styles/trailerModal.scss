@@ -1,0 +1,67 @@
+.trailer-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.trailer-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close-button {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+
+    svg {
+        fill: white;
+        transition: fill 0.2s;
+    }
+
+    &:hover svg {
+        fill: #e50914;
+    }
+}
+
+.trailer-content {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    border-radius: 4px;
+    overflow: hidden;
+
+    .video-player {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+.trailer-message {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+
+    h6 {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+}
