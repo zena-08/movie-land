@@ -21,7 +21,7 @@ const WatchLaterPage: FC = () => {
     const { watchLaterMovies } = useSelector((state: RootState) => state.watchLater)
     const { starredMovies } = useSelector((state: RootState) => state.starred)
     const { getMovieTrailer } = useMovies()
-    const { remveAllWatchLater } = watchLaterSlice.actions
+    const { clearWatchLater } = watchLaterSlice.actions
     const dispatch = useDispatch()
     const [searchParams] = useSearchParams()
     const searchQuery = searchParams.get('search')?.toLowerCase() || ''
@@ -76,7 +76,7 @@ const WatchLaterPage: FC = () => {
                 <footer className="text-center">
                     <button
                         className="btn btn-primary"
-                        onClick={() => dispatch(remveAllWatchLater())}
+                        onClick={() => dispatch(clearWatchLater())}
                     >
                         Empty list
                     </button>
