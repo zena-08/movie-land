@@ -2,6 +2,8 @@ import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import starredSlice from '../data/starredSlice'
 import watchLaterSlice from '../data/watchLaterSlice'
+import fallbackImage from '../assets/not-found-500X750.jpeg'
+import { IMAGE_BASE_URL } from '../constants'
 import '../styles/movie.scss'
 
 interface MovieType {
@@ -53,6 +55,8 @@ const HeartIcon = ({ filled = false }: { filled?: boolean }) => (
 
 const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
     const [showOverview, setShowOverview] = useState(false)
+    const [imageError, setImageError] = useState(false)
+
     const dispatch = useDispatch()
     const { starMovie, unstarMovie } = starredSlice.actions
     const { addToWatchLater, removeFromWatchLater } = watchLaterSlice.actions
@@ -60,9 +64,10 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
     return (
         <div className="movie" data-testid="movie-card">
             <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={imageError ? fallbackImage : `${IMAGE_BASE_URL}${movie.poster_path}`}
                 alt={movie.title}
                 className="movie__poster"
+                onError={() => setImageError(true)}
             />
             <div className="movie__info">
                 <h3 title={movie.title}>{movie.title}</h3>
