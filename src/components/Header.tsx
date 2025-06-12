@@ -49,15 +49,13 @@ const Header: FC = () => {
 
             <nav className="nav">
                 <NavLink to="/starred" data-testid="nav-starred" className="nav-link">
-                    {starredMovies.length > 0 ? (
-                        <>
-                            <StarIcon filled />
+                    <div className="icon-wrapper">
+                        <StarIcon filled={starredMovies.length > 0} />
+                        {starredMovies.length > 0 && (
                             <sup className="star-number">{starredMovies.length}</sup>
-                            <span className="label-text">Starred</span>
-                        </>
-                    ) : (
-                        <StarIcon />
-                    )}
+                        )}
+                    </div>
+                    <span className="label-text">Starred</span>
                 </NavLink>
 
                 <NavLink to="/watch-later" className="nav-link">

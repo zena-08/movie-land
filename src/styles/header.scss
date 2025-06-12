@@ -59,6 +59,12 @@
         color: $primary-color;
       }
 
+      .icon-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
       .star-number {
         position: absolute;
         top: -8px;
