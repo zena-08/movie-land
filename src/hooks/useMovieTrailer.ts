@@ -1,20 +1,36 @@
 import { useState } from 'react'
-import { ENDPOINT, API_KEY } from '../constants'
+import { BASE_URL, API_KEY } from '../constants'
+
+interface Movie {
+    id: string | number;
+    title: string;
+}
+
+interface VideoResult {
+    key: string;
+    type: string;
+}
+
+interface MovieResponse {
+    videos?: {
+        results: VideoResult[];
+    };
+}
 
 export const useMovieTrailer = () => {
-    const [videoKey, setVideoKey] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [videoKey, setVideoKey] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>(null)
 
-    const getMovieTrailer = async (movie) => {
+    const getMovieTrailer = async (movie: Movie) => {
         try {
             setIsLoading(true)
             setError(null)
             setVideoKey(null)
 
-            const URL = `${ENDPOINT}/movie/${movie.id}?api_key=${API_KEY}&append_to_response=videos`
+            const URL = `${BASE_URL}/movie/${movie.id}?api_key=${API_KEY}&append_to_response=videos`
             const response = await fetch(URL)
-            const data = await response.json()
+            const data: MovieResponse = await response.json()
 
             if (data.videos && data.videos.results.length) {
                 const trailer = data.videos.results.find(vid => vid.type === 'Trailer')

@@ -1,8 +1,9 @@
 import { FC, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { AppDispatch } from '../store'
-import Movie from '../components/Movie'
+import { AppDispatch } from '../data/store'
 import { useMovies } from '../context/MovieContext'
+import Movie from '../components/Movie'
+import LoadingState from '../components/LoadingState'
 import { RootState } from '../test/utils'
 import { fetchMovies } from '../data/moviesSlice'
 import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from '../constants'
@@ -34,10 +35,30 @@ const HomePage: FC = () => {
 
     const { observerTarget, isFetching } = useInfiniteScroll(loadMoreMovies)
 
+    if (fetchStatus === 'loading' && !movieData?.results?.length) {
+        return <LoadingState message="Loading movies..." />
+    }
+
+    if (fetchStatus === 'error') {
+        return (
+            <div className="error-container">
+                <p className="error">Error loading movies. Please try again.</p>
+            </div>
+        )
+    }
+
+    if (!movieData?.results?.length) {
+        return (
+            <div className="empty-state">
+                <p>No movies found. Try a different search.</p>
+            </div>
+        )
+    }
+
     return (
         <div className="movies-page">
             <div data-testid="movies" className="movies-grid">
-                {movieData?.results?.map((movie: any) => (
+                {movieData.results.map((movie: any) => (
                     <Movie
                         movie={movie}
                         key={movie.id}
@@ -46,12 +67,7 @@ const HomePage: FC = () => {
                 ))}
             </div>
             <div ref={observerTarget} className="observer-element" />
-            {isFetching && (
-                <div className="loading">Loading more movies...</div>
-            )}
-            {fetchStatus === 'error' && (
-                <div className="error">Error loading movies. Please try again.</div>
-            )}
+            {isFetching && <LoadingState message="Loading more movies..." />}
         </div>
     )
 }

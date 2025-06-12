@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from 'react'
 import { Link, NavLink, useNavigate, useLocation, useSearchParams } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { AppDispatch } from '../store'
+import { AppDispatch } from '../data/store'
 import { RootState } from '../test/utils'
 import { fetchMovies } from '../data/moviesSlice'
 import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from '../constants'

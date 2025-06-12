@@ -1,15 +1,16 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import { fetchMovies } from '../data/moviesSlice'
 import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from '../constants'
+import { AppDispatch } from '../data/store'
 
 export const useMovieSearch = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
     const [searchParams, setSearchParams] = useSearchParams()
     const searchQuery = searchParams.get('search')
 
-    const handleSearch = (query) => {
+    const handleSearch = (query: string) => {
         if (query && query.trim() !== '') {
             dispatch(fetchMovies(`${ENDPOINT_SEARCH}&query=${encodeURIComponent(query.trim())}`))
             setSearchParams({ search: query })
@@ -20,7 +21,7 @@ export const useMovieSearch = () => {
     }
 
     useEffect(() => {
-        handleSearch(searchQuery)
+        handleSearch(searchQuery || '')
     }, [])
 
     return {

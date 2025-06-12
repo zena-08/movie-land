@@ -10,5 +10,4 @@ const store = configureStore({
         watchLater: watchLaterSlice.reducer
     },
 })
-
 export default store

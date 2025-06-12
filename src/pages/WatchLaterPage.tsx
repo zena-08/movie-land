@@ -36,7 +36,6 @@ const WatchLaterPage: FC = () => {
         )
     }
 
-    // Add watchLater flag and check starred status for all movies
     const moviesWithFlags = watchLaterMovies
         .map(movie => ({
             ...movie,
