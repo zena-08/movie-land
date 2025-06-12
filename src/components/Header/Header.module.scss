@@ -1,0 +1,112 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 64px;
+    background: rgba(15, 15, 30, 0.95);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.filmIcon {
+    font-size: 1.5rem;
+    color: #00bfff;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+
+    &:hover {
+        color: #00bfff;
+    }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: #ccc;
+    font-size: 0.95rem;
+    position: relative;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #fff;
+    }
+
+    &:global(.active) {
+        color: #00bfff;
+    }
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+}
+
+.labelText {
+    font-size: 0.9rem;
+}
+
+.starNumber {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: #e50914;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 5px;
+    border-radius: 999px;
+}
+
+.inputGroup {
+    width: 220px;
+
+    @media (max-width: 720px) {
+        width: 150px;
+    }
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.4rem 0.75rem;
+    background: #1c1c2e;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    outline: none;
+
+    &:focus {
+        border-color: #00bfff;
+    }
+
+    &::placeholder {
+        color: #888;
+    }
+}

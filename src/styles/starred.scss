@@ -1,10 +1,12 @@
+@import './_variables';
+
 .starred-page,
 .watch-later-page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1rem;
-    background-color: #0f0f0f;
-    color: #fff;
+    background-color: $background-dark;
+    color: $text-light;
 
     .header {
         font-size: 1.5rem;
@@ -23,23 +25,23 @@
         margin-top: 2rem;
 
         .btn-primary {
-            background-color: #e50914;
+            background-color: $heart-color;
             border: none;
             padding: 0.5rem 2rem;
             font-size: 1rem;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background-color $transition-speed $transition-ease;
 
             &:hover {
-                background-color: #f40612;
+                background-color: lighten($heart-color, 5%);
             }
         }
     }
 }
 
 .empty-cart {
-    color: #fff;
+    color: $text-light;
     text-align: center;
     margin-top: 2rem;
 
@@ -52,8 +54,9 @@
         margin: 0.5rem 0;
 
         a {
-            color: #e50914;
+            color: $heart-color;
             text-decoration: none;
+            transition: all $transition-speed $transition-ease;
 
             &:hover {
                 text-decoration: underline;

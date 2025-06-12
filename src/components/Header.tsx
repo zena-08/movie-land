@@ -1,10 +1,8 @@
-import { FC, useState, useEffect } from 'react'
-import { Link, NavLink, useNavigate, useLocation, useSearchParams } from "react-router-dom"
-import { useSelector, useDispatch } from 'react-redux'
-import { AppDispatch } from '../data/store'
+import { FC } from 'react'
+import { Link, NavLink } from "react-router-dom"
+import { useSelector } from 'react-redux'
 import { RootState } from '../test/utils'
-import { fetchMovies } from '../data/moviesSlice'
-import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from '../constants'
+import { useSearch } from '../hooks/useSearch'
 import '../styles/header.scss'
 
 const StarIcon = ({ filled = false }: { filled?: boolean }) => (
@@ -38,67 +36,37 @@ const HeartIcon = () => (
 
 const Header: FC = () => {
     const { starredMovies } = useSelector((state: RootState) => state.starred)
-    const [searchParams, setSearchParams] = useSearchParams()
-    const searchQuery = searchParams.get('search') || ''
-    const [searchTerm, setSearchTerm] = useState(searchQuery)
-    const location = useLocation()
-    const dispatch = useDispatch<AppDispatch>()
-
-    useEffect(() => {
-        if (location.pathname === '/' && !searchQuery) {
-            dispatch(fetchMovies(ENDPOINT_DISCOVER))
-        }
-    }, [dispatch, location.pathname])
-
-    useEffect(() => {
-        setSearchTerm(searchQuery)
-    }, [searchQuery])
-
-    const handleSearch = (value: string) => {
-        setSearchTerm(value)
-        if (value.trim() !== '') {
-            setSearchParams({ search: value.trim() })
-            if (location.pathname === '/') {
-                dispatch(fetchMovies(`${ENDPOINT_SEARCH}&query=${encodeURIComponent(value.trim())}`))
-            }
-        } else {
-            setSearchParams({})
-            if (location.pathname === '/') {
-                dispatch(fetchMovies(ENDPOINT_DISCOVER))
-            }
-        }
-    }
+    const { searchTerm, handleSearch } = useSearch()
 
     return (
-        <header>
+        <header className="header">
             <div className="header-left">
                 <Link to="/" data-testid="home">
-                    <i className="bi bi-film" />
+                    <i className="bi bi-film film-icon" />
                 </Link>
-                <div className="logo">
-                    <Link to="/">MovieLand</Link>
-                </div>
+                <Link to="/" className="logo">MovieLand</Link>
             </div>
 
-            <nav className="header-nav">
-                <NavLink to="/starred" data-testid="nav-starred" className="nav-starred">
+            <nav className="nav">
+                <NavLink to="/starred" data-testid="nav-starred" className="nav-link">
                     {starredMovies.length > 0 ? (
                         <>
                             <StarIcon filled />
                             <sup className="star-number">{starredMovies.length}</sup>
+                            <span className="label-text">Starred</span>
                         </>
                     ) : (
                         <StarIcon />
                     )}
                 </NavLink>
 
-                <NavLink to="/watch-later" className="nav-fav">
+                <NavLink to="/watch-later" className="nav-link">
                     <HeartIcon />
                     <span className="label-text">Watch Later</span>
                 </NavLink>
             </nav>
 
-            <div className="search-container">
+            <div className="input-group">
                 <input
                     type="search"
                     data-testid="search-movies"

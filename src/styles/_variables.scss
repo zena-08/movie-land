@@ -1,0 +1,34 @@
+// Brand Colors
+$primary-color: #00bfff;
+$primary-color-light: rgba($primary-color, 0.2);
+
+// Background Colors
+$background-dark: rgba(15, 15, 30, 0.95);
+$background-light: #1c1c2e;
+$background-overlay: rgba(0, 0, 0, 0.1);
+
+// Text Colors
+$text-light: #fff;
+$text-muted: #888;
+
+// Border Colors
+$border-color: #333;
+$border-focus: $primary-color;
+
+// Status Colors
+$star-color: #ffd700;
+$heart-color: #ff4d6d;
+
+// Shadows
+$shadow-color: rgba(0, 0, 0, 0.1);
+$box-shadow-sm: 0 2px 4px $shadow-color;
+$box-shadow-md: 0 4px 6px $shadow-color;
+
+// Transitions
+$transition-speed: 0.2s;
+$transition-ease: ease;
+
+// Breakpoints
+$mobile: 768px;
+$tablet: 1024px;
+$desktop: 1280px;

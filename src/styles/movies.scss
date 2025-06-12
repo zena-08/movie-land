@@ -1,9 +1,11 @@
+@import './_variables';
+
 .movies-page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 0;
-    background-color: #0f0f0f;
-    color: #fff;
+    background-color: $background-dark;
+    color: $text-light;
 
     .movies-grid {
         display: grid;
@@ -13,7 +15,7 @@
     }
 
     .empty-cart {
-        color: #fff;
+        color: $text-light;
         text-align: center;
         margin-top: 2rem;
 
@@ -26,8 +28,9 @@
             margin: 0.5rem 0;
 
             a {
-                color: #e50914;
+                color: $heart-color;
                 text-decoration: none;
+                transition: all $transition-speed $transition-ease;
 
                 &:hover {
                     text-decoration: underline;
@@ -46,11 +49,11 @@
     .error {
         text-align: center;
         padding: 2rem;
-        color: #fff;
+        color: $text-light;
         font-size: 1.1rem;
     }
 
     .error {
-        color: #e50914;
+        color: $heart-color;
     }
 }

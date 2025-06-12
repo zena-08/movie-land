@@ -1,7 +1,9 @@
+@import './_variables';
+
 .input-group {
     width: 220px;
 
-    @media (max-width: 720px) {
+    @media (max-width: $mobile) {
         width: 150px;
     }
 
@@ -11,19 +13,20 @@
         input {
             width: 100%;
             padding: 0.4rem 0.75rem;
-            background: #1c1c2e;
-            color: #fff;
-            border: 1px solid #333;
+            background: $background-light;
+            color: $text-light;
+            border: 1px solid $border-color;
             border-radius: 4px;
             font-size: 0.85rem;
             outline: none;
+            transition: border-color $transition-speed $transition-ease;
 
             &:focus {
-                border-color: #00bfff;
+                border-color: $primary-color;
             }
 
             &::placeholder {
-                color: #888;
+                color: $text-muted;
             }
         }
     }
