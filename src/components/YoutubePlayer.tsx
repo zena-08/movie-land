@@ -15,4 +15,4 @@ const YoutubePlayer: FC<YoutubePlayerProps> = ({ videoKey }) => (
     />
 )
 
-export default YoutubePlayer 
+export default YoutubePlayer
