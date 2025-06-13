@@ -5,6 +5,7 @@ import watchLaterSlice from '../data/watchLaterSlice'
 import { useMovies } from '../context/MovieContext'
 import Movie from '../components/Movie'
 import { RootState } from '../test/utils'
+import { HeartIcon } from '../icons'
 import '../styles/starred.scss'
 
 type MovieType = {
@@ -29,7 +30,7 @@ const WatchLaterPage: FC = () => {
     if (watchLaterMovies.length === 0) {
         return (
             <div className="text-center empty-cart">
-                <i className="bi bi-heart" />
+                <HeartIcon />
                 <p>You have no movies saved to watch later.</p>
                 <p>Go to <Link to='/'>Home</Link></p>
             </div>
@@ -54,7 +55,7 @@ const WatchLaterPage: FC = () => {
             <div className="text-center empty-cart">
                 <i className="bi bi-search" />
                 <p>No watch later movies match your search.</p>
-                <p>Try a different search term or <Link to='/watch-later'>view all watch later movies</Link></p>
+                <p>Try a different search term or <Link to='/starred'>view all starred movies</Link></p>
             </div>
         )
     }

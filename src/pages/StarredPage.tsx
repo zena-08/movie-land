@@ -5,6 +5,7 @@ import starredSlice from '../data/starredSlice'
 import { useMovies } from '../context/MovieContext'
 import Movie from '../components/Movie'
 import { RootState } from '../test/utils'
+import { StarIcon } from '../icons'
 import '../styles/starred.scss'
 
 type MovieType = {
@@ -29,7 +30,7 @@ const StarredPage: FC = () => {
     if (starredMovies.length === 0) {
         return (
             <div className="text-center empty-cart">
-                <i className="bi bi-star" />
+                <StarIcon />
                 <p>You have no starred movies.</p>
                 <p>Go to <Link to='/'>Home</Link></p>
             </div>
@@ -55,7 +56,7 @@ const StarredPage: FC = () => {
             <div className="text-center empty-cart">
                 <i className="bi bi-search" />
                 <p>No starred movies match your search.</p>
-                <p>Try a different search term or <Link to='/starred'>view all starred movies</Link></p>
+                <p>Try a different search term or <Link to='/watch-later'>view all watch later movies</Link></p>
             </div>
         )
     }
