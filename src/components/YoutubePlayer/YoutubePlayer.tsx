@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import ReactPlayer from 'react-player'
+import styles from './youtube.module.scss'
 
 interface YoutubePlayerProps {
     videoKey: string;
@@ -7,7 +8,7 @@ interface YoutubePlayerProps {
 
 const YoutubePlayer: FC<YoutubePlayerProps> = ({ videoKey }) => (
     <ReactPlayer
-        className="video-player"
+        className={styles['video-player']}
         url={`https://www.youtube.com/watch?v=${videoKey}`}
         controls={true}
         playing={true}
@@ -15,4 +16,4 @@ const YoutubePlayer: FC<YoutubePlayerProps> = ({ videoKey }) => (
     />
 )
 
-export default YoutubePlayer
+export default YoutubePlayer    

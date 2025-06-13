@@ -1,10 +1,10 @@
 import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import starredSlice from '../data/starredSlice'
-import watchLaterSlice from '../data/watchLaterSlice'
-import fallbackImage from '../assets/not-found-500X750.jpeg'
-import { IMAGE_BASE_URL } from '../constants'
-import '../styles/movie.scss'
+import starredSlice from '../../data/starredSlice'
+import watchLaterSlice from '../../data/watchLaterSlice'
+import fallbackImage from '../../assets/not-found-500X750.jpeg'
+import { IMAGE_BASE_URL } from '../../constants'
+import styles from './movie.module.scss'
 
 interface MovieType {
     id: string;
@@ -62,33 +62,33 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
     const { addToWatchLater, removeFromWatchLater } = watchLaterSlice.actions
 
     return (
-        <div className="movie" data-testid="movie-card">
+        <div className={styles.movie} data-testid="movie-card">
             <img
                 src={imageError ? fallbackImage : `${IMAGE_BASE_URL}${movie.poster_path}`}
                 alt={movie.title}
-                className="movie__poster"
+                className={styles['movie__poster']}
                 onError={() => setImageError(true)}
             />
-            <div className="movie__info">
+            <div className={styles['movie__info']}>
                 <h3 title={movie.title}>{movie.title}</h3>
 
-                <div className="content-wrapper">
-                    <p className={`overview ${showOverview ? 'expanded' : ''}`}>
+                <div className={styles['content-wrapper']}>
+                    <p className={`${styles.overview} ${showOverview ? styles.expanded : ''}`}>
                         {movie.overview}
                     </p>
-                    <div className={`fade-overlay ${showOverview ? 'hidden' : ''}`} />
+                    <div className={`${styles['fade-overlay']} ${showOverview ? styles.hidden : ''}`} />
                 </div>
 
                 <button
-                    className="toggle-overview"
+                    className={styles['toggle-overview']}
                     onClick={() => setShowOverview(!showOverview)}
                 >
                     {showOverview ? 'Show less' : 'Read more'}
                 </button>
 
-                <div className="movie__actions">
+                <div className={styles['movie__actions']}>
                     <button
-                        className="btn btn-primary"
+                        className={`${styles.btn} ${styles['btn-primary']}`}
                         onClick={() => viewTrailer(movie)}
                     >
                         View Trailer
@@ -96,7 +96,7 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
 
                     <button
                         data-testid="star"
-                        className={`btn-icon ${movie.isStarred ? 'active-star' : ''}`}
+                        className={`${styles.btn} ${styles['btn-icon']} ${movie.isStarred ? styles.activeStar : ''}`}
                         onClick={() =>
                             dispatch(movie.isStarred ? unstarMovie(movie) : starMovie(movie))
                         }
@@ -107,7 +107,7 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
 
                     <button
                         data-testid="watch-later"
-                        className={`btn-icon ${movie.watchLater ? 'active-heart' : ''}`}
+                        className={`${styles['btn-icon']} ${movie.watchLater ? styles['active-heart'] : ''}`}
                         onClick={() =>
                             dispatch(
                                 movie.watchLater
