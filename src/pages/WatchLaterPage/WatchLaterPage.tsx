@@ -6,7 +6,7 @@ import { useMovies } from '../../context/MovieContext'
 import Movie from '../../components/Movie'
 import { RootState } from '../../test/utils'
 import { HeartIcon } from '../../icons'
-import './watchLaterPage.module.scss'
+import styles from './watchLaterPage.module.scss'
 
 type MovieType = {
     id: string;
@@ -29,7 +29,7 @@ const WatchLaterPage: FC = () => {
 
     if (watchLaterMovies.length === 0) {
         return (
-            <div className="text-center empty-cart">
+            <div className={`${styles['empty-cart']} ${styles['text-center']}`}>
                 <HeartIcon />
                 <p>You have no movies saved to watch later.</p>
                 <p>Go to <Link to='/'>Home</Link></p>
@@ -52,8 +52,7 @@ const WatchLaterPage: FC = () => {
 
     if (searchQuery && moviesWithFlags.length === 0) {
         return (
-            <div className="text-center empty-cart">
-                <i className="bi bi-search" />
+            <div className={`${styles['empty-cart']} ${styles['text-center']}`}>
                 <p>No watch later movies match your search.</p>
                 <p>Try a different search term or <Link to='/starred'>view all starred movies</Link></p>
             </div>
@@ -61,10 +60,10 @@ const WatchLaterPage: FC = () => {
     }
 
     return (
-        <div className="watch-later-page" data-testid="watch-later-div">
-            <div data-testid="watch-later-movies" className="starred-movies">
-                <h6 className="header">Watch Later List</h6>
-                <div className="movies-grid">
+        <div className={styles['watch-later-page']} data-testid="watch-later-div">
+            <div data-testid="watch-later-movies" className={styles['starred-movies']}>
+                <h6 className={styles['header']}>Watch Later List</h6>
+                <div className={styles['movies-grid']}>
                     {moviesWithFlags.map((movie: MovieType) => (
                         <Movie
                             movie={movie}
@@ -74,9 +73,9 @@ const WatchLaterPage: FC = () => {
                     ))}
                 </div>
 
-                <footer className="text-center">
+                <footer className={styles['text-center']}>
                     <button
-                        className="btn btn-primary"
+                        className={styles['btn-primary']}
                         onClick={() => dispatch(clearWatchLater())}
                     >
                         Empty list

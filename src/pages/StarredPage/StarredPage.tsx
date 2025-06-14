@@ -6,7 +6,7 @@ import { useMovies } from '../../context/MovieContext'
 import Movie from '../../components/Movie'
 import { RootState } from '../../test/utils'
 import { StarIcon } from '../../icons'
-import './starred.module.scss'
+import styles from './starredPage.module.scss'
 
 type MovieType = {
     id: string;
@@ -29,7 +29,7 @@ const StarredPage: FC = () => {
 
     if (starredMovies.length === 0) {
         return (
-            <div className="text-center empty-cart">
+            <div className={`${styles['empty-cart']} ${styles['text-center']}`}>
                 <StarIcon />
                 <p>You have no starred movies.</p>
                 <p>Go to <Link to='/'>Home</Link></p>
@@ -53,8 +53,7 @@ const StarredPage: FC = () => {
 
     if (searchQuery && moviesWithFlags.length === 0) {
         return (
-            <div className="text-center empty-cart">
-                <i className="bi bi-search" />
+            <div className={`${styles['empty-cart']} ${styles['text-center']}`}>
                 <p>No starred movies match your search.</p>
                 <p>Try a different search term or <Link to='/watch-later'>view all watch later movies</Link></p>
             </div>
@@ -62,10 +61,10 @@ const StarredPage: FC = () => {
     }
 
     return (
-        <div className="starred-page" data-testid="starred-div">
-            <div data-testid="starred-movies" className="starred-movies">
-                <h6 className="header">Starred Movies</h6>
-                <div className="movies-grid">
+        <div className={styles['starred-page']} data-testid="starred-div">
+            <div data-testid="starred-movies" className={styles['starred-movies']}>
+                <h6 className={styles['header']}>Starred Movies</h6>
+                <div className={styles['movies-grid']}>
                     {moviesWithFlags.map((movie: MovieType) => (
                         <Movie
                             movie={movie}
@@ -75,9 +74,9 @@ const StarredPage: FC = () => {
                     ))}
                 </div>
 
-                <footer className="text-center">
+                <footer className={styles['text-center']}>
                     <button
-                        className="btn btn-primary"
+                        className={styles['btn-primary']}
                         onClick={() => dispatch(clearAllStarred())}
                     >
                         Clear all
