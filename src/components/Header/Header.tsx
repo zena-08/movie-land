@@ -1,7 +1,5 @@
 import { FC } from 'react'
 import { Link, NavLink } from "react-router-dom"
-import { useSelector } from 'react-redux'
-import { RootState } from '../../test/utils'
 import { useSearch } from '../../hooks/useSearch'
 import styles from './header.module.scss'
 
@@ -44,7 +42,6 @@ const MovieIcon = () => (
 
 
 const Header: FC = () => {
-    const { starredMovies } = useSelector((state: RootState) => state.starred)
     const { searchTerm, handleSearch } = useSearch()
 
     return (
@@ -59,10 +56,7 @@ const Header: FC = () => {
             <nav className={styles.nav}>
                 <NavLink to="/starred" data-testid="nav-starred" className={styles['nav-link']}>
                     <div className={styles['icon-wrapper']}>
-                        <StarIcon filled={starredMovies.length > 0} />
-                        {starredMovies.length > 0 && (
-                            <sup className={styles['star-number']}>{starredMovies.length}</sup>
-                        )}
+                        <StarIcon filled />
                     </div>
                     <span className={styles['label-text']}>Starred</span>
                 </NavLink>
