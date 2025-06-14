@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import ReactPlayer from 'react-player'
-import styles from './youtube.module.scss'
+import styles from './youtubePlayer.module.scss'
 
 interface YoutubePlayerProps {
     videoKey: string;
