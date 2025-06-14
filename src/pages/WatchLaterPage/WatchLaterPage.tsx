@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useSearchParams } from 'react-router-dom'
-import starredSlice from '../data/starredSlice'
-import { useMovies } from '../context/MovieContext'
-import Movie from '../components/Movie'
-import { RootState } from '../test/utils'
-import { StarIcon } from '../icons'
-import '../styles/starred.scss'
+import watchLaterSlice from '../../data/watchLaterSlice'
+import { useMovies } from '../../context/MovieContext'
+import Movie from '../../components/Movie'
+import { RootState } from '../../test/utils'
+import { HeartIcon } from '../../icons'
+import './watchLaterPage.module.scss'
 
 type MovieType = {
     id: string;
@@ -18,31 +18,30 @@ type MovieType = {
     watchLater?: boolean;
 }
 
-const StarredPage: FC = () => {
-    const { starredMovies } = useSelector((state: RootState) => state.starred)
+const WatchLaterPage: FC = () => {
     const { watchLaterMovies } = useSelector((state: RootState) => state.watchLater)
+    const { starredMovies } = useSelector((state: RootState) => state.starred)
     const { getMovieTrailer } = useMovies()
-    const { clearAllStarred } = starredSlice.actions
+    const { clearWatchLater } = watchLaterSlice.actions
     const dispatch = useDispatch()
     const [searchParams] = useSearchParams()
     const searchQuery = searchParams.get('search')?.toLowerCase() || ''
 
-    if (starredMovies.length === 0) {
+    if (watchLaterMovies.length === 0) {
         return (
             <div className="text-center empty-cart">
-                <StarIcon />
-                <p>You have no starred movies.</p>
+                <HeartIcon />
+                <p>You have no movies saved to watch later.</p>
                 <p>Go to <Link to='/'>Home</Link></p>
             </div>
         )
     }
 
-    // Add isStarred flag and check watchLater status for all movies
-    const moviesWithFlags = starredMovies
+    const moviesWithFlags = watchLaterMovies
         .map(movie => ({
             ...movie,
-            isStarred: true,
-            watchLater: watchLaterMovies.some(m => m.id === movie.id)
+            watchLater: true,
+            isStarred: starredMovies.some(m => m.id === movie.id)
         }))
         .filter(movie =>
             searchQuery ?
@@ -55,16 +54,16 @@ const StarredPage: FC = () => {
         return (
             <div className="text-center empty-cart">
                 <i className="bi bi-search" />
-                <p>No starred movies match your search.</p>
-                <p>Try a different search term or <Link to='/watch-later'>view all watch later movies</Link></p>
+                <p>No watch later movies match your search.</p>
+                <p>Try a different search term or <Link to='/starred'>view all starred movies</Link></p>
             </div>
         )
     }
 
     return (
-        <div className="starred-page" data-testid="starred-div">
-            <div data-testid="starred-movies" className="starred-movies">
-                <h6 className="header">Starred Movies</h6>
+        <div className="watch-later-page" data-testid="watch-later-div">
+            <div data-testid="watch-later-movies" className="starred-movies">
+                <h6 className="header">Watch Later List</h6>
                 <div className="movies-grid">
                     {moviesWithFlags.map((movie: MovieType) => (
                         <Movie
@@ -78,9 +77,9 @@ const StarredPage: FC = () => {
                 <footer className="text-center">
                     <button
                         className="btn btn-primary"
-                        onClick={() => dispatch(clearAllStarred())}
+                        onClick={() => dispatch(clearWatchLater())}
                     >
-                        Clear all
+                        Empty list
                     </button>
                 </footer>
             </div>
@@ -88,4 +87,4 @@ const StarredPage: FC = () => {
     )
 }
 
-export default StarredPage 
+export default WatchLaterPage 

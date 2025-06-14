@@ -1,0 +1,65 @@
+@import '../../styles/variables.scss';
+
+.starred-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background-color: $background-dark;
+    color: $text-light;
+
+    .header {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .movies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-top: 20px;
+    }
+
+    footer {
+        margin-top: 2rem;
+
+        .btn-primary {
+            background-color: $heart-color;
+            border: none;
+            padding: 0.5rem 2rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color $transition-speed $transition-ease;
+
+            &:hover {
+                background-color: lighten($heart-color, 5%);
+            }
+        }
+    }
+}
+
+.empty-cart {
+    color: $text-light;
+    text-align: center;
+    margin-top: 2rem;
+
+    i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        margin: 0.5rem 0;
+
+        a {
+            color: $heart-color;
+            text-decoration: none;
+            transition: all $transition-speed $transition-ease;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
