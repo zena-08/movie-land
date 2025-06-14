@@ -1,14 +1,14 @@
 import { FC, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { AppDispatch } from '../data/store'
-import { useMovies } from '../context/MovieContext'
-import Movie from '../components/Movie'
-import LoadingState from '../components/LoadingState'
-import { RootState } from '../test/utils'
-import { fetchMovies } from '../data/moviesSlice'
-import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from '../constants'
-import { useInfiniteScroll } from '../hooks/useInfiniteScroll'
-import '../styles/movies.scss'
+import { AppDispatch } from '../../data/store'
+import { useMovies } from '../../context/MovieContext'
+import Movie from '../../components/Movie'
+import LoadingState from '../../components/LoadingState'
+import { RootState } from '../../test/utils'
+import { fetchMovies } from '../../data/moviesSlice'
+import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from '../../constants'
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll'
+import styles from './homePage.module.scss'
 
 interface MovieResponse {
     results: any[];
@@ -41,23 +41,23 @@ const HomePage: FC = () => {
 
     if (fetchStatus === 'error') {
         return (
-            <div className="error-container">
-                <p className="error">Error loading movies. Please try again.</p>
+            <div className={styles['error-container']}>
+                <p className={styles['error']}>Error loading movies. Please try again.</p>
             </div>
         )
     }
 
     if (!movieData?.results?.length) {
         return (
-            <div className="empty-state">
+            <div className={styles['empty-state']}>
                 <p>No movies found. Try a different search.</p>
             </div>
         )
     }
 
     return (
-        <div className="movies-page">
-            <div data-testid="movies" className="movies-grid">
+        <div className={styles['movies-page']}>
+            <div data-testid="movies" className={styles['movies-grid']}>
                 {movieData.results.map((movie: any) => (
                     <Movie
                         movie={movie}
@@ -66,7 +66,7 @@ const HomePage: FC = () => {
                     />
                 ))}
             </div>
-            <div ref={observerTarget} className="observer-element" />
+            <div ref={observerTarget} className={styles['observer-element']} />
             {isFetching && <LoadingState message="Loading more movies..." />}
         </div>
     )
