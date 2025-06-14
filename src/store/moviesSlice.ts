@@ -1,17 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-
-interface Movie {
-    id: number;
-    title: string;
-    overview: string;
-    poster_path: string;
-    vote_average: number;
-    release_date: string;
-}
+import { MovieType } from 'types'
 
 interface MovieResponse {
-    results: Movie[];
+    results: MovieType[];
     page: number;
     total_pages: number;
 }

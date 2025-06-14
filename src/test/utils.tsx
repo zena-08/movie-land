@@ -5,35 +5,12 @@ import { BrowserRouter } from 'react-router-dom'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import { MovieProvider } from '../context/MovieContext'
-import moviesSlice from '../data/moviesSlice'
-import starredSlice from '../data/starredSlice'
-import watchLaterSlice from '../data/watchLaterSlice'
+import moviesSlice from '../store/moviesSlice'
+import starredSlice from '../store/starredSlice'
+import watchLaterSlice from '../store/watchLaterSlice'
 import { RenderOptions } from '@testing-library/react'
+import { RootState } from 'store';
 
-export interface MovieType {
-    id: string;
-    title: string;
-    overview: string;
-    poster_path: string;
-    release_date: string;
-    isStarred?: boolean;
-    watchLater?: boolean;
-}
-
-export interface RootState {
-    movies: {
-        movies: {
-            results: MovieType[];
-        };
-        fetchStatus: string;
-    };
-    starred: {
-        starredMovies: MovieType[];
-    };
-    watchLater: {
-        watchLaterMovies: MovieType[];
-    };
-}
 
 const rootReducer = combineReducers({
     movies: moviesSlice.reducer,

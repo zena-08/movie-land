@@ -1,15 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface Movie {
-    id: string;
-    title: string;
-    overview: string;
-    poster_path: string;
-    release_date: string;
-}
 
 interface WatchLaterState {
-    watchLaterMovies: Movie[];
+    watchLaterMovies: number[];
 }
 
 const initialState: WatchLaterState = {
@@ -20,14 +13,14 @@ const watchLaterSlice = createSlice({
     name: 'watchLater',
     initialState,
     reducers: {
-        addToWatchLater: (state, action: PayloadAction<Movie>) => {
-            if (!state.watchLaterMovies.some(movie => movie.id === action.payload.id)) {
+        addToWatchLater: (state, action: PayloadAction<number>) => {
+            if (!state.watchLaterMovies.some(id => id === action.payload)) {
                 state.watchLaterMovies.push(action.payload);
             }
         },
-        removeFromWatchLater: (state, action: PayloadAction<Movie>) => {
+        removeFromWatchLater: (state, action: PayloadAction<number>) => {
             state.watchLaterMovies = state.watchLaterMovies.filter(
-                movie => movie.id !== action.payload.id
+                id => id !== action.payload
             );
         },
         clearWatchLater: (state) => {

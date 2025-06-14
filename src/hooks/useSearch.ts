@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSearchParams, useLocation } from 'react-router-dom'
-import { fetchMovies } from '../data/moviesSlice'
-import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from '../constants'
-import { AppDispatch } from '../data/store'
-import { useDebounce } from './useDebounce'
+import { fetchMovies } from 'store/moviesSlice'
+import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from 'utils/constants'
+import { AppDispatch } from 'store'
+import { useDebounce } from 'hooks/useDebounce'
 
 export const useSearch = (delay = 300) => {
     const dispatch = useDispatch<AppDispatch>()

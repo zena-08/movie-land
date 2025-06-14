@@ -1,27 +1,20 @@
 import { createContext, useContext, FC, ReactNode, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useMovieTrailer } from '../hooks/useMovieTrailer'
-
-type Movie = {
-    id: string;
-    title: string;
-    overview: string;
-    poster_path: string;
-    release_date: string;
-    isStarred?: boolean;
-    watchLater?: boolean;
-}
+import { useAppSelector } from 'store';
+import { MovieType } from 'types';
+import { useMovieTrailer } from 'hooks/useMovieTrailer'
 
 type MovieContextType = {
     movies: {
-        results: Movie[];
+        results: MovieType[];
+        page: number;
+        total_pages: number;
     };
     videoKey: string | null;
     isLoading: boolean;
     error: string | null;
-    getMovieTrailer: (movie: Movie) => void;
-    starredMovies: Movie[];
-    watchLaterMovies: Movie[];
+    getMovieTrailer: (movie: MovieType) => void;
+    starredMovies: number[];
+    watchLaterMovies: number[];
     isTrailerOpen: boolean;
     closeTrailer: () => void;
 }
@@ -34,22 +27,22 @@ type MovieProviderProps = {
 
 export const MovieProvider: FC<MovieProviderProps> = ({ children }) => {
     const [isTrailerOpen, setIsTrailerOpen] = useState(false)
-    const movies = useSelector((state: any) => state.movies.movies)
-    const starredMovies = useSelector((state: any) => state.starred.starredMovies)
-    const watchLaterMovies = useSelector((state: any) => state.watchLater.watchLaterMovies)
+    const movies = useAppSelector((state) => state.movies.movies)
+    const starredMovies = useAppSelector((state) => state.starred.starredMovies)
+    const watchLaterMovies = useAppSelector((state) => state.watchLater.watchLaterMovies)
     const { videoKey, isLoading, error, getMovieTrailer: fetchTrailer } = useMovieTrailer()
 
     // Add isStarred and watchLater flags to movies
     const moviesWithFlags = {
         ...movies,
-        results: movies?.results?.map((movie: Movie) => ({
+        results: movies?.results?.map((movie) => ({
             ...movie,
-            isStarred: starredMovies.some((m: Movie) => m.id === movie.id),
-            watchLater: watchLaterMovies.some((m: Movie) => m.id === movie.id)
+            isStarred: starredMovies.some((m) => m === movie.id),
+            watchLater: watchLaterMovies.some((m) => m === movie.id)
         })) || []
     }
 
-    const getMovieTrailer = (movie: Movie) => {
+    const getMovieTrailer = (movie: MovieType) => {
         setIsTrailerOpen(true)
         fetchTrailer(movie)
     }

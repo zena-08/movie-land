@@ -1,47 +1,30 @@
-import { FC } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useMemo } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useSearchParams } from 'react-router-dom'
-import watchLaterSlice from '../../data/watchLaterSlice'
-import { useMovies } from '../../context/MovieContext'
-import Movie from '../../components/Movie'
-import { RootState } from '../../test/utils'
-import { HeartIcon } from '../../icons'
+
+import { useMovies } from 'context/MovieContext'
+import { useAppSelector } from 'store'
+import watchLaterSlice from 'store/watchLaterSlice'
+import Movie from 'components/Movie'
+
 import styles from './watchLaterPage.module.scss'
 
-type MovieType = {
-    id: string;
-    title: string;
-    overview: string;
-    poster_path: string;
-    release_date: string;
-    isStarred?: boolean;
-    watchLater?: boolean;
-}
-
-const WatchLaterPage: FC = () => {
-    const { watchLaterMovies } = useSelector((state: RootState) => state.watchLater)
-    const { starredMovies } = useSelector((state: RootState) => state.starred)
+const WatchLaterPage = () => {
+    const { watchLaterMovies } = useAppSelector((state) => state.watchLater)
+    const { starredMovies } = useAppSelector((state) => state.starred)
+    const { movies } = useAppSelector((state) => state.movies)
     const { getMovieTrailer } = useMovies()
     const { clearWatchLater } = watchLaterSlice.actions
     const dispatch = useDispatch()
     const [searchParams] = useSearchParams()
     const searchQuery = searchParams.get('search')?.toLowerCase() || ''
 
-    if (watchLaterMovies.length === 0) {
-        return (
-            <div className={`${styles['empty-cart']} ${styles['text-center']}`}>
-                <HeartIcon />
-                <p>You have no movies saved to watch later.</p>
-                <p>Go to <Link to='/'>Home</Link></p>
-            </div>
-        )
-    }
-
-    const moviesWithFlags = watchLaterMovies
+    const moviesWithFlags = useMemo(() => movies.results
+        .filter(movie => watchLaterMovies.includes(movie.id))
         .map(movie => ({
             ...movie,
             watchLater: true,
-            isStarred: starredMovies.some(m => m.id === movie.id)
+            isStarred: starredMovies.some(m => m === movie.id)
         }))
         .filter(movie =>
             searchQuery ?
@@ -49,8 +32,10 @@ const WatchLaterPage: FC = () => {
                 movie.overview.toLowerCase().includes(searchQuery)
                 : true
         )
+        , [watchLaterMovies, starredMovies, searchQuery]);
 
-    if (searchQuery && moviesWithFlags.length === 0) {
+
+    if (moviesWithFlags.length === 0) {
         return (
             <div className={`${styles['empty-cart']} ${styles['text-center']}`}>
                 <p>No watch later movies match your search.</p>
@@ -64,7 +49,7 @@ const WatchLaterPage: FC = () => {
             <div data-testid="watch-later-movies" className={styles['starred-movies']}>
                 <h6 className={styles['header']}>Watch Later List</h6>
                 <div className={styles['movies-grid']}>
-                    {moviesWithFlags.map((movie: MovieType) => (
+                    {moviesWithFlags.map((movie) => (
                         <Movie
                             movie={movie}
                             key={movie.id}

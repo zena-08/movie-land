@@ -1,20 +1,12 @@
 import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import starredSlice from '../../data/starredSlice'
-import watchLaterSlice from '../../data/watchLaterSlice'
-import fallbackImage from '../../assets/not-found-500X750.jpeg'
-import { IMAGE_BASE_URL } from '../../constants'
-import styles from './movie.module.scss'
+import { MovieType } from 'types'
+import starredSlice from 'store/starredSlice'
+import watchLaterSlice from 'store/watchLaterSlice'
+import fallbackImage from 'assets/not-found-500X750.jpeg'
+import { IMAGE_BASE_URL } from 'utils/constants'
 
-interface MovieType {
-    id: string;
-    title: string;
-    overview: string;
-    poster_path: string;
-    release_date: string;
-    isStarred?: boolean;
-    watchLater?: boolean;
-}
+import styles from './movie.module.scss'
 
 interface MovieProps {
     movie: MovieType;
@@ -98,7 +90,7 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
                         data-testid="star"
                         className={`${styles.btn} ${styles['btn-icon']} ${movie.isStarred ? styles.activeStar : ''}`}
                         onClick={() =>
-                            dispatch(movie.isStarred ? unstarMovie(movie) : starMovie(movie))
+                            dispatch(movie.isStarred ? unstarMovie(movie.id) : starMovie(movie.id))
                         }
                         aria-label={movie.isStarred ? 'Remove from starred' : 'Add to starred'}
                     >
@@ -111,8 +103,8 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
                         onClick={() =>
                             dispatch(
                                 movie.watchLater
-                                    ? removeFromWatchLater(movie)
-                                    : addToWatchLater(movie)
+                                    ? removeFromWatchLater(movie.id)
+                                    : addToWatchLater(movie.id)
                             )
                         }
                         aria-label={

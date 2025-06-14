@@ -1,15 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface Movie {
-    id: string;
-    title: string;
-    overview: string;
-    poster_path: string;
-    release_date: string;
-}
 
 interface StarredState {
-    starredMovies: Movie[];
+    starredMovies: number[];
 }
 
 const initialState: StarredState = {
@@ -20,14 +13,14 @@ const starredSlice = createSlice({
     name: 'starred',
     initialState,
     reducers: {
-        starMovie: (state, action: PayloadAction<Movie>) => {
-            if (!state.starredMovies.some(movie => movie.id === action.payload.id)) {
+        starMovie: (state, action: PayloadAction<number>) => {
+            if (!state.starredMovies.some(id => id === action.payload)) {
                 state.starredMovies.push(action.payload);
             }
         },
-        unstarMovie: (state, action: PayloadAction<Movie>) => {
+        unstarMovie: (state, action: PayloadAction<number>) => {
             state.starredMovies = state.starredMovies.filter(
-                movie => movie.id !== action.payload.id
+                id => id !== action.payload
             );
         },
         clearAllStarred: (state) => {

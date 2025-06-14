@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BASE_URL, API_KEY } from '../constants'
+import { BASE_URL, API_KEY } from 'utils/constants'
 
 interface Movie {
     id: string | number;

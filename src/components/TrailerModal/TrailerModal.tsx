@@ -1,10 +1,10 @@
 import { FC } from 'react'
-import { useMovies } from '../../context/MovieContext'
-import YouTubePlayer from '../YoutubePlayer'
-import { CloseIcon } from '../../icons'
+import { useMovies } from 'context/MovieContext'
+import YouTubePlayer from 'components/YoutubePlayer'
+import { CloseIcon } from 'icons'
 import styles from './trailerModal.module.scss'
 
-const TrailerModal: FC = () => {
+const TrailerModal = () => {
     const { videoKey, isLoading, error, isTrailerOpen, closeTrailer } = useMovies()
 
     if (!isTrailerOpen) return null;

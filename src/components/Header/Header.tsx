@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Link, NavLink } from "react-router-dom"
-import { useSearch } from '../../hooks/useSearch'
+import { useSearch } from 'hooks/useSearch'
 import styles from './header.module.scss'
 
 const StarIcon = ({ filled = false }: { filled?: boolean }) => (
@@ -41,7 +41,7 @@ const MovieIcon = () => (
 );
 
 
-const Header: FC = () => {
+const Header = () => {
     const { searchTerm, handleSearch } = useSearch()
 
     return (

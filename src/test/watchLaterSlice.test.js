@@ -1,4 +1,4 @@
-import watchLaterSlice from '../data/watchLaterSlice'
+import watchLaterSlice from '../store/watchLaterSlice'
 import { moviesMock } from './movies.mocks'
 
 describe('watchLaterSlice test', () => {

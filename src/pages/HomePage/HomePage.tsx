@@ -1,28 +1,24 @@
-import { FC, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { AppDispatch } from '../../data/store'
-import { useMovies } from '../../context/MovieContext'
-import Movie from '../../components/Movie'
-import LoadingState from '../../components/LoadingState'
-import { RootState } from '../../test/utils'
-import { fetchMovies } from '../../data/moviesSlice'
-import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from '../../constants'
-import { useInfiniteScroll } from '../../hooks/useInfiniteScroll'
+import { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
+
+import { useMovies } from 'context/MovieContext'
+import { useInfiniteScroll } from 'hooks/useInfiniteScroll'
+import { AppDispatch, useAppSelector } from 'store'
+import { fetchMovies } from 'store/moviesSlice'
+import { ENDPOINT_DISCOVER, ENDPOINT_SEARCH } from 'utils/constants'
+
+import LoadingState from 'components/LoadingState'
+import Movie from 'components/Movie'
+
 import styles from './homePage.module.scss'
 
-interface MovieResponse {
-    results: any[];
-    page: number;
-    total_pages: number;
-}
-
-const HomePage: FC = () => {
+const HomePage = () => {
     const dispatch = useDispatch<AppDispatch>()
-    const { movies, getMovieTrailer } = useMovies()
-    const { fetchStatus } = useSelector((state: RootState) => state.movies)
-    const searchParams = new URLSearchParams(window.location.search)
+    const { movies: movieData, getMovieTrailer } = useMovies()
+    const { fetchStatus } = useAppSelector((state) => state.movies)
+    const [searchParams] = useSearchParams()
     const searchQuery = searchParams.get('search')
-    const movieData = movies as MovieResponse
 
     const loadMoreMovies = useCallback(() => {
         if (fetchStatus === 'loading' || movieData.page >= movieData.total_pages) return

@@ -1,16 +1,16 @@
 import { FC, Suspense, lazy } from 'react'
 import { Routes, Route } from "react-router-dom"
 import 'reactjs-popup/dist/index.css'
-import { MovieProvider } from './context/MovieContext'
-import Header from './components/Header'
-import { MESSAGES } from './constants'
+import { MovieProvider } from 'context/MovieContext'
+import Header from 'components/Header'
+import { MESSAGES } from 'utils/constants'
 import './app.scss'
 
 // Lazy load page components
-const HomePage = lazy(() => import('./pages/HomePage'))
-const StarredPage = lazy(() => import('./pages/StarredPage'))
-const WatchLaterPage = lazy(() => import('./pages/WatchLaterPage'))
-const TrailerModal = lazy(() => import('./components/TrailerModal'))
+const HomePage = lazy(() => import('pages/HomePage'))
+const StarredPage = lazy(() => import('pages/StarredPage'))
+const WatchLaterPage = lazy(() => import('pages/WatchLaterPage'))
+const TrailerModal = lazy(() => import('components/TrailerModal'))
 
 // Loading component for Suspense fallback
 const LoadingFallback = () => (

@@ -3,7 +3,6 @@
 .movies-page {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 0;
     background-color: $background-dark;
     color: $text-light;
 
@@ -11,7 +10,6 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 2rem;
-        padding: 0 2rem;
     }
 
     .empty-cart {
