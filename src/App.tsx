@@ -1,22 +1,33 @@
-import { FC } from 'react'
+import { FC, Suspense, lazy } from 'react'
 import { Routes, Route } from "react-router-dom"
 import 'reactjs-popup/dist/index.css'
 import { MovieProvider } from './context/MovieContext'
 import Header from './components/Header'
-import TrailerModal from './components/TrailerModal'
-import HomePage from './pages/HomePage'
-import StarredPage from './pages/StarredPage'
-import WatchLaterPage from './pages/WatchLaterPage'
 import { MESSAGES } from './constants'
 import './app.scss'
 
+// Lazy load page components
+const HomePage = lazy(() => import('./pages/HomePage'))
+const StarredPage = lazy(() => import('./pages/StarredPage'))
+const WatchLaterPage = lazy(() => import('./pages/WatchLaterPage'))
+const TrailerModal = lazy(() => import('./components/TrailerModal'))
+
+// Loading component for Suspense fallback
+const LoadingFallback = () => (
+    <div className="loading-container">
+        <div className="loading-spinner"></div>
+    </div>
+)
+
 const AppRoutes: FC = () => (
-    <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/starred" element={<StarredPage />} />
-        <Route path="/watch-later" element={<WatchLaterPage />} />
-        <Route path="*" element={<h1 className="not-found">{MESSAGES.PAGE_NOT_FOUND}</h1>} />
-    </Routes>
+    <Suspense fallback={<LoadingFallback />}>
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/starred" element={<StarredPage />} />
+            <Route path="/watch-later" element={<WatchLaterPage />} />
+            <Route path="*" element={<h1 className="not-found">{MESSAGES.PAGE_NOT_FOUND}</h1>} />
+        </Routes>
+    </Suspense>
 )
 
 const App: FC = () => {
@@ -27,7 +38,9 @@ const App: FC = () => {
                 <div className="container">
                     <AppRoutes />
                 </div>
-                <TrailerModal />
+                <Suspense fallback={null}>
+                    <TrailerModal />
+                </Suspense>
             </div>
         </MovieProvider>
     )
