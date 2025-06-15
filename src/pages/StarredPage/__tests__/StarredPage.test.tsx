@@ -1,3 +1,4 @@
+import { act } from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import { renderWithProviders } from 'utils/test-utils'
 import StarredPage from '../StarredPage'
@@ -11,8 +12,10 @@ jest.mock('components/Movie', () => {
 })
 
 describe('StarredPage Component', () => {
-    it('shows empty state when no movies are starred', () => {
-        renderWithProviders(<StarredPage />)
+    it('shows empty state when no movies are starred', async () => {
+        await act(async () => {
+            renderWithProviders(<StarredPage />)
+        })
         expect(screen.getByText('No starred movies match your search.')).toBeInTheDocument()
     })
 
@@ -48,7 +51,9 @@ describe('StarredPage Component', () => {
             }
         }
 
-        renderWithProviders(<StarredPage />, { preloadedState })
+        await act(async () => {
+            renderWithProviders(<StarredPage />, { preloadedState })
+        })
 
         await waitFor(() => {
             expect(screen.getByText('Starred Movie 1')).toBeInTheDocument()
@@ -89,9 +94,11 @@ describe('StarredPage Component', () => {
         }
 
         // Render with search parameter
-        renderWithProviders(<StarredPage />, {
-            preloadedState,
-            route: '/starred?search=Movie%201'
+        await act(async () => {
+            renderWithProviders(<StarredPage />, {
+                preloadedState,
+                route: '/starred?search=Movie%201'
+            })
         })
 
         // Should only show the matching movie

@@ -1,3 +1,4 @@
+import { act } from 'react'
 import { screen } from '@testing-library/react'
 import { renderWithProviders } from 'utils/test-utils'
 import HomePage from '../HomePage'
@@ -40,7 +41,7 @@ describe('HomePage Component', () => {
         watchLater: { watchLaterMovies: [] }
     }
 
-    it('displays loading state', () => {
+    it('displays loading state', async () => {
         const preloadedState: Partial<RootState> = {
             ...initialPreloadedState,
             movies: {
@@ -49,17 +50,19 @@ describe('HomePage Component', () => {
             }
         }
 
-        renderWithProviders(
-            <MovieProvider>
-                <HomePage />
-            </MovieProvider>,
-            { preloadedState }
-        )
+        await act(async () => {
+            renderWithProviders(
+                <MovieProvider>
+                    <HomePage />
+                </MovieProvider>,
+                { preloadedState }
+            )
+        })
 
         expect(screen.getByText('Loading movies...')).toBeInTheDocument()
     })
 
-    it('displays error state', () => {
+    it('displays error state', async () => {
         const preloadedState: Partial<RootState> = {
             ...initialPreloadedState,
             movies: {
@@ -68,17 +71,19 @@ describe('HomePage Component', () => {
             }
         }
 
-        renderWithProviders(
-            <MovieProvider>
-                <HomePage />
-            </MovieProvider>,
-            { preloadedState }
-        )
+        await act(async () => {
+            renderWithProviders(
+                <MovieProvider>
+                    <HomePage />
+                </MovieProvider>,
+                { preloadedState }
+            )
+        })
 
         expect(screen.getByText('Error loading movies. Please try again.')).toBeInTheDocument()
     })
 
-    it('displays empty state', () => {
+    it('displays empty state', async () => {
         const preloadedState: Partial<RootState> = {
             ...initialPreloadedState,
             movies: {
@@ -87,23 +92,27 @@ describe('HomePage Component', () => {
             }
         }
 
-        renderWithProviders(
-            <MovieProvider>
-                <HomePage />
-            </MovieProvider>,
-            { preloadedState }
-        )
+        await act(async () => {
+            renderWithProviders(
+                <MovieProvider>
+                    <HomePage />
+                </MovieProvider>,
+                { preloadedState }
+            )
+        })
 
         expect(screen.getByText('No movies found. Try a different search.')).toBeInTheDocument()
     })
 
-    it('displays movies when available', () => {
-        renderWithProviders(
-            <MovieProvider>
-                <HomePage />
-            </MovieProvider>,
-            { preloadedState: initialPreloadedState }
-        )
+    it('displays movies when available', async () => {
+        await act(async () => {
+            renderWithProviders(
+                <MovieProvider>
+                    <HomePage />
+                </MovieProvider>,
+                { preloadedState: initialPreloadedState }
+            )
+        })
 
         expect(screen.getByText('Movie 1')).toBeInTheDocument()
         expect(screen.getByText('Movie 2')).toBeInTheDocument()

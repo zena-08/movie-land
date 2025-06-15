@@ -1,3 +1,4 @@
+import { act } from 'react'
 import { screen, waitFor } from '@testing-library/react'
 import { renderWithProviders } from 'utils/test-utils'
 import WatchLaterPage from '../WatchLaterPage'
@@ -11,8 +12,10 @@ jest.mock('components/Movie', () => {
 })
 
 describe('WatchLaterPage Component', () => {
-    it('shows empty state when no movies are saved', () => {
-        renderWithProviders(<WatchLaterPage />)
+    it('shows empty state when no movies are saved', async () => {
+        await act(async () => {
+            renderWithProviders(<WatchLaterPage />)
+        })
         expect(screen.getByText('No watch later movies match your search.')).toBeInTheDocument()
     })
 
@@ -48,7 +51,9 @@ describe('WatchLaterPage Component', () => {
             }
         }
 
-        renderWithProviders(<WatchLaterPage />, { preloadedState })
+        await act(async () => {
+            renderWithProviders(<WatchLaterPage />, { preloadedState })
+        })
 
         await waitFor(() => {
             expect(screen.getByText('Watch Later Movie 1')).toBeInTheDocument()
@@ -89,9 +94,11 @@ describe('WatchLaterPage Component', () => {
         }
 
         // Render with search parameter
-        renderWithProviders(<WatchLaterPage />, {
-            preloadedState,
-            route: '/watch-later?search=Movie%201'
+        await act(async () => {
+            renderWithProviders(<WatchLaterPage />, {
+                preloadedState,
+                route: '/watch-later?search=Movie%201'
+            })
         })
 
         // Should only show the matching movie

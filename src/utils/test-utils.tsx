@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, Suspense } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
@@ -44,8 +44,12 @@ export function renderWithProviders(
     function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
         return (
             <Provider store={store}>
-                <BrowserRouter>
-                    <MovieProvider>{children}</MovieProvider>
+                <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                    <MovieProvider>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            {children}
+                        </Suspense>
+                    </MovieProvider>
                 </BrowserRouter>
             </Provider>
         )
