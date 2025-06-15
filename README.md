@@ -122,6 +122,7 @@ src/
 - Improve color contrast to make the app more accessible (see: 🔗 [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)).
 - Remove duplicate styles and icons by putting shared ones in a single file.
 - Add integration tests and E2E tests with Playwright to catch bugs and test user flows.
+- Persist starred and watchLater state in localStorage to maintain user preferences across sessions.
 
 ## Acknowledgments 🙏
 
