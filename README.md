@@ -30,7 +30,7 @@ A modern movie discovery application built with React and TypeScript. Browse mov
 1. Clone the repository:
    ```bash
    git clone <your-repository-url>
-   cd coding-assignment
+   cd movie-land
    ```
 
 2. Install dependencies:
