@@ -61,6 +61,9 @@ describe('useMovieTrailer', () => {
 
     it('should handle API error', async () => {
         const errorMessage = 'Failed to load trailer'
+        const originalConsoleError = console.error
+        console.error = jest.fn()
+
         global.fetch = jest.fn().mockRejectedValueOnce(new Error(errorMessage))
 
         const { result } = renderHook(() => useMovieTrailer())
@@ -72,6 +75,10 @@ describe('useMovieTrailer', () => {
         expect(result.current.videoKey).toBe(null)
         expect(result.current.isLoading).toBe(false)
         expect(result.current.error).toBe(errorMessage)
+        expect(console.error).toHaveBeenCalledWith('Error loading trailer:', expect.any(Error))
+
+        // Restore console.error
+        console.error = originalConsoleError
     })
 
     it('should handle no trailer found', async () => {
