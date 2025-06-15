@@ -4,12 +4,11 @@ A modern movie discovery application built with React and TypeScript. Browse mov
 
 ## Features ✨
 
-- Search movies from TMDB's extensive database
-- Watch movie trailers
-- Star your favorite movies
-- Create a "Watch Later" list
-- Responsive design for mobile and desktop
-- Search within your starred and watch later lists
+- **Search & Discover**: Find movies from TMDB's extensive database with debounced search for smooth performance.
+- **Watch Trailers**: Stream movie trailers directly within the app.
+- **Personal Lists**: Star your favorite movies and create a "Watch Later" list for future viewing.
+- **Responsive Design**: Enjoy a seamless experience on both mobile and desktop devices.
+- **Infinite Scroll**: Browse movies effortlessly with infinite scrolling for a smooth user experience.
 
 ## Tech Stack 🛠️
 
@@ -60,28 +59,34 @@ A modern movie discovery application built with React and TypeScript. Browse mov
 
 ### npm
 ```sh
-npm start
-npm test
-npm run build
-npm run lint
-npm run lint:src
-npm run lint:ts
-npm run lint:fix
-npm run lint:src:fix
-npm run lint:ts:fix
+npm start          # Start development server
+npm test           # Run tests
+npm run build      # Build for production
 ```
 
 ### Yarn
 ```sh
-yarn start
-yarn test
-yarn build
-yarn lint
-yarn lint:src
-yarn lint:ts
-yarn lint:fix
-yarn lint:src:fix
-yarn lint:ts:fix
+yarn start         # Start development server
+yarn test          # Run tests
+yarn build         # Build for production
+```
+
+## Code Quality
+
+### npm
+```sh
+npm run lint       # Lint all files
+npm run lint:src   # Lint src directory
+npm run lint:ts    # Lint TypeScript files
+npm run lint:fix   # Lint and fix issues
+```
+
+### Yarn
+```sh
+yarn lint          # Lint all files
+yarn lint:src      # Lint src directory
+yarn lint:ts       # Lint TypeScript files
+yarn lint:fix      # Lint and fix issues
 ```
 
 ## Project Structure 📁
