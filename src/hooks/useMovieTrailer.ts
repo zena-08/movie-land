@@ -35,6 +35,8 @@ export const useMovieTrailer = () => {
             if (data.videos && data.videos.results.length) {
                 const trailer = data.videos.results.find(vid => vid.type === 'Trailer')
                 setVideoKey(trailer ? trailer.key : data.videos.results[0].key)
+            } else {
+                setError('No trailer found')
             }
         } catch (err) {
             setError('Failed to load trailer')
