@@ -58,21 +58,34 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
     const { addToWatchLater, removeFromWatchLater } = watchLaterSlice.actions
 
     return (
-        <article className={styles.movie} data-testid="movie-card" role="article">
+        <article
+            className={styles.movie}
+            data-testid="movie-card"
+            role="article"
+            tabIndex={0}
+        >
             <img
                 src={imageError ? fallbackImage : `${IMAGE_BASE_URL}${movie.poster_path}`}
                 alt={`Poster for ${movie.title}`}
                 className={styles['movie__poster']}
                 onError={() => setImageError(true)}
+                tabIndex={0}
             />
             <div className={styles['movie__info']}>
-                <h3 title={movie.title} id={`movie-title-${movie.id}`}>{movie.title}</h3>
+                <h3
+                    title={movie.title}
+                    id={`movie-title-${movie.id}`}
+                    tabIndex={0}
+                >
+                    {movie.title}
+                </h3>
 
                 <div className={styles['content-wrapper']}>
                     <p
                         className={`${styles.overview} ${showOverview ? styles.expanded : ''}`}
                         aria-expanded={showOverview}
                         aria-labelledby={`movie-title-${movie.id}`}
+                        tabIndex={0}
                     >
                         {movie.overview}
                     </p>
@@ -87,6 +100,7 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
                     onClick={() => setShowOverview(!showOverview)}
                     aria-expanded={showOverview}
                     aria-controls={`movie-overview-${movie.id}`}
+                    tabIndex={0}
                 >
                     {showOverview ? 'Show less' : 'Read more'}
                 </button>
@@ -96,6 +110,7 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
                         className={`${styles.btn} ${styles['btn-primary']}`}
                         onClick={() => viewTrailer(movie)}
                         aria-label={`Watch trailer for ${movie.title}`}
+                        tabIndex={0}
                     >
                         View Trailer
                     </button>
@@ -108,6 +123,7 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
                         }
                         aria-label={movie.isStarred ? `Remove ${movie.title} from starred` : `Add ${movie.title} to starred`}
                         aria-pressed={movie.isStarred}
+                        tabIndex={0}
                     >
                         <StarIcon filled={movie.isStarred} />
                     </button>
@@ -128,6 +144,7 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
                                 : `Add ${movie.title} to watch later`
                         }
                         aria-pressed={movie.watchLater}
+                        tabIndex={0}
                     >
                         <HeartIcon filled={movie.watchLater} />
                     </button>

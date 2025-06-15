@@ -8,7 +8,7 @@ import styles from './trailerModal.module.scss'
 const VideoPlayerWithErrorBoundary: FC<{ videoKey: string }> = ({ videoKey }) => (
     <ErrorBoundary
         fallback={
-            <div className={styles['trailer-message']} role="alert">
+            <div className={styles['trailer-message']} role="alert" tabIndex={0}>
                 <h6>Failed to load video player. Please try again.</h6>
             </div>
         }
@@ -29,35 +29,38 @@ const TrailerModal: FC = () => {
             role="dialog"
             aria-modal="true"
             aria-label="Movie trailer"
+            tabIndex={-1}
         >
             <div
                 className={styles['trailer-modal-content']}
                 onClick={e => e.stopPropagation()}
                 role="document"
+                tabIndex={0}
             >
                 <button
                     className={styles['close-button']}
                     onClick={closeTrailer}
                     aria-label="Close trailer"
+                    tabIndex={0}
                 >
                     <CloseIcon aria-hidden="true" />
                 </button>
 
                 <div className={styles['trailer-content']}>
                     {isLoading && (
-                        <div className={styles['trailer-message']} role="status">
+                        <div className={styles['trailer-message']} role="status" tabIndex={0}>
                             <h6>Loading trailer...</h6>
                         </div>
                     )}
 
                     {error && (
-                        <div className={styles['trailer-message']} role="alert">
+                        <div className={styles['trailer-message']} role="alert" tabIndex={0}>
                             <h6>{error}</h6>
                         </div>
                     )}
 
                     {!isLoading && !error && !videoKey && (
-                        <div className={styles['trailer-message']} role="status">
+                        <div className={styles['trailer-message']} role="status" tabIndex={0}>
                             <h6>No trailer available. Try another movie.</h6>
                         </div>
                     )}

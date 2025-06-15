@@ -36,17 +36,17 @@ const StarredPage = () => {
 
     if (moviesWithFlags.length === 0) {
         return (
-            <div className={`${styles['empty-cart']} ${styles['text-center']}`}>
+            <div className={`${styles['empty-cart']} ${styles['text-center']}`} role="status" tabIndex={0}>
                 <p>No starred movies match your search.</p>
-                <p>Try a different search term or <Link to='/watch-later'>view all watch later movies</Link></p>
+                <p>Try a different search term or <Link to='/watch-later' tabIndex={0}>view all watch later movies</Link></p>
             </div>
         )
     }
 
     return (
-        <div className={styles['starred-page']} data-testid="starred-div">
+        <main className={styles['starred-page']} data-testid="starred-div" role="main" tabIndex={-1}>
             <div data-testid="starred-movies" className={styles['starred-movies']}>
-                <h6 className={styles['header']}>Starred Movies</h6>
+                <h6 className={styles['header']} tabIndex={0}>Starred Movies</h6>
                 <div className={styles['movies-grid']}>
                     {moviesWithFlags.map((movie) => (
                         <Movie
@@ -61,12 +61,14 @@ const StarredPage = () => {
                     <button
                         className={styles['btn-primary']}
                         onClick={() => dispatch(clearAllStarred())}
+                        tabIndex={0}
+                        aria-label="Clear all starred movies"
                     >
                         Clear all
                     </button>
                 </footer>
             </div>
-        </div>
+        </main>
     )
 }
 

@@ -38,7 +38,7 @@ const HomePageContent = () => {
 
     if (fetchStatus === 'error') {
         return (
-            <div className={styles['error-container']}>
+            <div className={styles['error-container']} role="alert" tabIndex={0}>
                 <p className={styles['error']}>Error loading movies. Please try again.</p>
             </div>
         )
@@ -46,14 +46,14 @@ const HomePageContent = () => {
 
     if (!movieData?.results?.length) {
         return (
-            <div className={styles['empty-state']}>
+            <div className={styles['empty-state']} role="status" tabIndex={0}>
                 <p>No movies found. Try a different search.</p>
             </div>
         )
     }
 
     return (
-        <div className={styles['movies-page']}>
+        <main className={styles['movies-page']} role="main" tabIndex={-1}>
             <div data-testid="movies" className={styles['movies-grid']}>
                 {movieData.results.map((movie: any) => (
                     <Movie
@@ -63,9 +63,9 @@ const HomePageContent = () => {
                     />
                 ))}
             </div>
-            <div ref={observerTarget} className={styles['observer-element']} />
+            <div ref={observerTarget} className={styles['observer-element']} aria-hidden="true" />
             {isFetching && <LoadingState message="Loading more movies..." />}
-        </div>
+        </main>
     )
 }
 

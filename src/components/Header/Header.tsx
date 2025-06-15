@@ -58,21 +58,44 @@ const Header = () => {
     return (
         <header className={styles.header} role="banner">
             <div className={styles['header-left']}>
-                <Link to="/" data-testid="home" aria-label="Go to home page">
+                <Link
+                    to="/"
+                    data-testid="home"
+                    aria-label="Go to home page"
+                    tabIndex={0}
+                >
                     <MovieIcon />
                 </Link>
-                <Link to="/" className={styles.logo} aria-label="MovieLand home">MovieLand</Link>
+                <Link
+                    to="/"
+                    className={styles.logo}
+                    aria-label="MovieLand home"
+                    tabIndex={0}
+                >
+                    MovieLand
+                </Link>
             </div>
 
             <nav className={styles.nav} role="navigation" aria-label="Main navigation">
-                <NavLink to="/starred" data-testid="nav-starred" className={styles['nav-link']} aria-label="View starred movies">
+                <NavLink
+                    to="/starred"
+                    data-testid="nav-starred"
+                    className={styles['nav-link']}
+                    aria-label="View starred movies"
+                    tabIndex={0}
+                >
                     <div className={styles['icon-wrapper']}>
                         <StarIcon filled />
                     </div>
                     <span className={styles['label-text']}>Starred</span>
                 </NavLink>
 
-                <NavLink to="/watch-later" className={styles['nav-link']} aria-label="View watch later list">
+                <NavLink
+                    to="/watch-later"
+                    className={styles['nav-link']}
+                    aria-label="View watch later list"
+                    tabIndex={0}
+                >
                     <HeartIcon />
                     <span className={styles['label-text']}>Watch Later</span>
                 </NavLink>
@@ -88,6 +111,7 @@ const Header = () => {
                     placeholder="Search movies..."
                     aria-label="Search movies"
                     aria-describedby="search-description"
+                    tabIndex={0}
                 />
                 <span id="search-description" className="sr-only">Search for movies by title</span>
             </div>

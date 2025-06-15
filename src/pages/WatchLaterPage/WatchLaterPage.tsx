@@ -37,17 +37,17 @@ const WatchLaterPage = () => {
 
     if (moviesWithFlags.length === 0) {
         return (
-            <div className={`${styles['empty-cart']} ${styles['text-center']}`}>
+            <div className={`${styles['empty-cart']} ${styles['text-center']}`} role="status" tabIndex={0}>
                 <p>No watch later movies match your search.</p>
-                <p>Try a different search term or <Link to='/starred'>view all starred movies</Link></p>
+                <p>Try a different search term or <Link to='/starred' tabIndex={0}>view all starred movies</Link></p>
             </div>
         )
     }
 
     return (
-        <div className={styles['watch-later-page']} data-testid="watch-later-div">
+        <main className={styles['watch-later-page']} data-testid="watch-later-div" role="main" tabIndex={-1}>
             <div data-testid="watch-later-movies" className={styles['starred-movies']}>
-                <h6 className={styles['header']}>Watch Later List</h6>
+                <h6 className={styles['header']} tabIndex={0}>Watch Later List</h6>
                 <div className={styles['movies-grid']}>
                     {moviesWithFlags.map((movie) => (
                         <Movie
@@ -62,12 +62,14 @@ const WatchLaterPage = () => {
                     <button
                         className={styles['btn-primary']}
                         onClick={() => dispatch(clearWatchLater())}
+                        tabIndex={0}
+                        aria-label="Clear all watch later movies"
                     >
                         Empty list
                     </button>
                 </footer>
             </div>
-        </div>
+        </main>
     )
 }
 
