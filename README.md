@@ -34,8 +34,8 @@ A modern movie discovery application built with React and TypeScript. Browse mov
 
 1. Clone the repository:
    ```bash
-   git clone <your-repository-url>
-   cd movie-land
+   git clone https://github.com/zenajose/movieland.git
+   cd movieland
    ```
 
 2. Install dependencies:
