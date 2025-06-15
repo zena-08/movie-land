@@ -114,7 +114,7 @@ src/
 - [ ] Add a theme toggle so users can switch between light and dark mode.
 - [ ] Move all text to constants to make the app easier to update and support multiple languages.
 - [ ] Switch from CRA to Vite to fix security issues and make the app faster and easier to maintain.
-- [ ] Improve color contrast to make the app more accessible (see: 🔗 WebAIM Contrast Checker).
+- [ ] Improve color contrast to make the app more accessible (see: 🔗 [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)).
 - [ ] Remove duplicate styles and icons by putting shared ones in a single file.
 - [ ] Add E2E tests with Playwright to catch bugs and test user flows.
 ```
