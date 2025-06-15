@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { renderWithProviders } from 'utils/test-utils'
 import HomePage from '../HomePage'
 import { RootState } from 'store'

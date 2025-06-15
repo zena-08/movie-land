@@ -1,0 +1,126 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks",
+        "import"
+    ],
+    "ignorePatterns": [
+        "build/**/*",
+        "node_modules/**/*"
+    ],
+    "rules": {
+        // React specific rules
+        "react/react-in-jsx-scope": "off", // Not needed in React 17+
+        "react/prop-types": "off", // We use TypeScript for prop types
+        "react/display-name": "off",
+        "react/jsx-key": "error", // Essential for React lists
+        "react/jsx-no-duplicate-props": "error", // Prevents bugs from duplicate props
+        "react/no-children-prop": "error",
+        "react/no-danger": "warn",
+        "react/no-deprecated": "error",
+        "react/no-direct-mutation-state": "error",
+        "react/no-find-dom-node": "error",
+        "react/no-is-mounted": "error",
+        "react/no-render-return-value": "error",
+        "react/no-string-refs": "error",
+        "react/no-unknown-property": "error",
+        "react/require-render-return": "error",
+        // React Hooks rules
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        // TypeScript specific rules
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-non-null-assertion": "warn",
+        "@typescript-eslint/no-empty-interface": "warn",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        // Import rules
+        "import/no-unresolved": "error",
+        "import/named": "error",
+        "import/default": "error",
+        "import/namespace": "error",
+        "import/no-duplicates": "error",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index"
+                ],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc"
+                }
+            }
+        ],
+        // General rules
+        "no-console": [
+            "warn",
+            {
+                "allow": [
+                    "warn",
+                    "error"
+                ]
+            }
+        ],
+        "no-debugger": "warn",
+        "no-duplicate-imports": "error",
+        "no-unused-expressions": "error",
+        "no-unused-vars": "off", // Using @typescript-eslint/no-unused-vars instead
+        "no-use-before-define": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "prefer-arrow-callback": "error",
+        "prefer-template": "error"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+        "import/resolver": {
+            "typescript": {},
+            "node": {
+                "extensions": [
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    }
+}

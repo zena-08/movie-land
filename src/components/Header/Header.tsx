@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Link, NavLink } from "react-router-dom"
 import { useSearch } from 'hooks/useSearch'
 import styles from './header.module.scss'

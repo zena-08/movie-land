@@ -32,7 +32,7 @@ const WatchLaterPage = () => {
                 movie.overview.toLowerCase().includes(searchQuery)
                 : true
         )
-        , [watchLaterMovies, starredMovies, searchQuery]);
+        , [watchLaterMovies, starredMovies, searchQuery, movies.results]);
 
 
     if (moviesWithFlags.length === 0) {

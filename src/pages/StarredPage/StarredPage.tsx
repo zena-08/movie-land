@@ -32,7 +32,7 @@ const StarredPage = () => {
                 movie.overview.toLowerCase().includes(searchQuery)
                 : true
         )
-        , [starredMovies, watchLaterMovies, searchQuery]);
+        , [starredMovies, watchLaterMovies, searchQuery, movies.results]);
 
     if (moviesWithFlags.length === 0) {
         return (

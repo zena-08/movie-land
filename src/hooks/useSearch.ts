@@ -36,7 +36,7 @@ export const useSearch = (delay = 300) => {
                 dispatch(fetchMovies(ENDPOINT_DISCOVER))
             }
         }
-    }, [debouncedSearchTerm, dispatch, location.pathname, setSearchParams])
+    }, [debouncedSearchTerm, dispatch, location.pathname, setSearchParams, searchTerm])
 
     const handleSearch = (value: string) => {
         setSearchTerm(value)
