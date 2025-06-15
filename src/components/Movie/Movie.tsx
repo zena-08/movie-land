@@ -24,6 +24,8 @@ const StarIcon = ({ filled = false }: { filled?: boolean }) => (
         strokeLinecap="round"
         strokeLinejoin="round"
         className="icon star-icon"
+        aria-hidden="true"
+        role="img"
     >
         <polygon points="12 2 15 8.5 22 9.3 17 14 18.2 21 12 17.3 5.8 21 7 14 2 9.3 9 8.5 12 2" />
     </svg>
@@ -40,6 +42,8 @@ const HeartIcon = ({ filled = false }: { filled?: boolean }) => (
         strokeLinecap="round"
         strokeLinejoin="round"
         className="icon heart-icon"
+        aria-hidden="true"
+        role="img"
     >
         <path d="M12 21s-6.5-4.3-9.3-8.5C.8 9.3 3.1 5 7 5c2.3 0 3.8 1.6 5 3 1.2-1.4 2.7-3 5-3 3.9 0 6.2 4.3 4.3 7.5C18.5 16.7 12 21 12 21z" />
     </svg>
@@ -54,34 +58,44 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
     const { addToWatchLater, removeFromWatchLater } = watchLaterSlice.actions
 
     return (
-        <div className={styles.movie} data-testid="movie-card">
+        <article className={styles.movie} data-testid="movie-card" role="article">
             <img
                 src={imageError ? fallbackImage : `${IMAGE_BASE_URL}${movie.poster_path}`}
-                alt={movie.title}
+                alt={`Poster for ${movie.title}`}
                 className={styles['movie__poster']}
                 onError={() => setImageError(true)}
             />
             <div className={styles['movie__info']}>
-                <h3 title={movie.title}>{movie.title}</h3>
+                <h3 title={movie.title} id={`movie-title-${movie.id}`}>{movie.title}</h3>
 
                 <div className={styles['content-wrapper']}>
-                    <p className={`${styles.overview} ${showOverview ? styles.expanded : ''}`}>
+                    <p
+                        className={`${styles.overview} ${showOverview ? styles.expanded : ''}`}
+                        aria-expanded={showOverview}
+                        aria-labelledby={`movie-title-${movie.id}`}
+                    >
                         {movie.overview}
                     </p>
-                    <div className={`${styles['fade-overlay']} ${showOverview ? styles.hidden : ''}`} />
+                    <div
+                        className={`${styles['fade-overlay']} ${showOverview ? styles.hidden : ''}`}
+                        aria-hidden="true"
+                    />
                 </div>
 
                 <button
                     className={styles['toggle-overview']}
                     onClick={() => setShowOverview(!showOverview)}
+                    aria-expanded={showOverview}
+                    aria-controls={`movie-overview-${movie.id}`}
                 >
                     {showOverview ? 'Show less' : 'Read more'}
                 </button>
 
-                <div className={styles['movie__actions']}>
+                <div className={styles['movie__actions']} role="group" aria-label="Movie actions">
                     <button
                         className={`${styles.btn} ${styles['btn-primary']}`}
                         onClick={() => viewTrailer(movie)}
+                        aria-label={`Watch trailer for ${movie.title}`}
                     >
                         View Trailer
                     </button>
@@ -92,7 +106,8 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
                         onClick={() =>
                             dispatch(movie.isStarred ? unstarMovie(movie.id) : starMovie(movie.id))
                         }
-                        aria-label={movie.isStarred ? 'Remove from starred' : 'Add to starred'}
+                        aria-label={movie.isStarred ? `Remove ${movie.title} from starred` : `Add ${movie.title} to starred`}
+                        aria-pressed={movie.isStarred}
                     >
                         <StarIcon filled={movie.isStarred} />
                     </button>
@@ -108,14 +123,17 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
                             )
                         }
                         aria-label={
-                            movie.watchLater ? 'Remove from watch later' : 'Add to watch later'
+                            movie.watchLater
+                                ? `Remove ${movie.title} from watch later`
+                                : `Add ${movie.title} to watch later`
                         }
+                        aria-pressed={movie.watchLater}
                     >
                         <HeartIcon filled={movie.watchLater} />
                     </button>
                 </div>
             </div>
-        </div>
+        </article>
     )
 }
 

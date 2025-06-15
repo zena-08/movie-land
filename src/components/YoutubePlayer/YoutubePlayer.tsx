@@ -6,14 +6,25 @@ interface YoutubePlayerProps {
 }
 
 const YoutubePlayer: FC<YoutubePlayerProps> = ({ videoKey }) => (
-    <ReactPlayer
-        url={`https://www.youtube.com/watch?v=${videoKey}`}
-        controls={true}
-        playing={true}
-        data-testid="youtube-player"
-        width='100%'
-        height='100%'
-    />
+    <div role="region" aria-label="Movie trailer video player">
+        <ReactPlayer
+            url={`https://www.youtube.com/watch?v=${videoKey}`}
+            controls={true}
+            playing={true}
+            data-testid="youtube-player"
+            width='100%'
+            height='100%'
+            config={{
+                youtube: {
+                    playerVars: {
+                        modestbranding: 1,
+                        rel: 0,
+                        title: 'Movie trailer'
+                    }
+                }
+            }}
+        />
+    </div>
 )
 
 export default YoutubePlayer    
