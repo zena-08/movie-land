@@ -101,6 +101,6 @@ describe('useMovieTrailer', () => {
 
         expect(result.current.videoKey).toBe(null)
         expect(result.current.isLoading).toBe(false)
-        expect(result.current.error).toBe('No trailer found')
+        expect(result.current.error).toBe('No trailers found for this movie')
     })
 }) 

@@ -6,14 +6,13 @@ interface Movie {
     title: string;
 }
 
-interface VideoResult {
-    key: string;
-    type: string;
-}
-
 interface MovieResponse {
     videos?: {
-        results: VideoResult[];
+        results: Array<{
+            key: string;
+            type: string;
+            site: string;
+        }>;
     };
 }
 
@@ -30,16 +29,31 @@ export const useMovieTrailer = () => {
 
             const URL = `${BASE_URL}/movie/${movie.id}?api_key=${API_KEY}&append_to_response=videos`
             const response = await fetch(URL)
+
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status} - ${response.statusText}`)
+            }
+
             const data: MovieResponse = await response.json()
 
-            if (data.videos && data.videos.results.length) {
-                const trailer = data.videos.results.find(vid => vid.type === 'Trailer')
-                setVideoKey(trailer ? trailer.key : data.videos.results[0].key)
+            if (!data.videos) {
+                throw new Error('No video data available')
+            }
+
+            if (!data.videos.results.length) {
+                throw new Error('No trailers found for this movie')
+            }
+
+            const trailer = data.videos.results.find(vid => vid.type === 'Trailer')
+            if (trailer) {
+                setVideoKey(trailer.key)
             } else {
-                setError('No trailer found')
+                // If no trailer is found, use the first video
+                setVideoKey(data.videos.results[0].key)
             }
         } catch (err) {
-            setError('Failed to load trailer')
+            const errorMessage = err instanceof Error ? err.message : 'Failed to load trailer'
+            setError(errorMessage)
             console.error('Error loading trailer:', err)
         } finally {
             setIsLoading(false)

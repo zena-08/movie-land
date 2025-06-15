@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useMovies } from 'context/MovieContext'
 import { useInfiniteScroll } from 'hooks/useInfiniteScroll'
 import { AppDispatch, useAppSelector } from 'store'
-import { fetchMovies } from 'store/moviesSlice'
+import { fetchMovies, clearError } from 'store/moviesSlice'
 import { ENDPOINT_DISCOVER, ENDPOINT_SEARCH } from 'utils/constants'
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary'
 
@@ -17,7 +17,7 @@ import styles from './homePage.module.scss'
 const HomePageContent = () => {
     const dispatch = useDispatch<AppDispatch>()
     const { movies: movieData, getMovieTrailer } = useMovies()
-    const { fetchStatus } = useAppSelector((state) => state.movies)
+    const { fetchStatus, errorMessage } = useAppSelector((state) => state.movies)
     const [searchParams] = useSearchParams()
     const searchQuery = searchParams.get('search')
 
@@ -39,7 +39,18 @@ const HomePageContent = () => {
     if (fetchStatus === 'error') {
         return (
             <div className={styles['error-container']} role="alert" tabIndex={0}>
-                <p className={styles['error']}>Error loading movies. Please try again.</p>
+                <p className={styles['error']}>{errorMessage || 'Error loading movies. Please try again.'}</p>
+                <button
+                    className={styles['retry-button']}
+                    onClick={() => {
+                        dispatch(clearError())
+                        const baseEndpoint = searchQuery ? ENDPOINT_SEARCH : ENDPOINT_DISCOVER
+                        const endpoint = `${baseEndpoint}${searchQuery ? `&query=${encodeURIComponent(searchQuery)}` : ''}&page=1`
+                        dispatch(fetchMovies(endpoint))
+                    }}
+                >
+                    Retry
+                </button>
             </div>
         )
     }

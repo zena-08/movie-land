@@ -10,6 +10,7 @@ interface MovieResponse {
 interface MoviesState {
     movies: MovieResponse;
     fetchStatus: 'idle' | 'loading' | 'succeeded' | 'error';
+    errorMessage: string | null;
 }
 
 const mockMovieResponse: MovieResponse = {
@@ -28,7 +29,8 @@ describe('moviesSlice', () => {
             page: 0,
             total_pages: 0
         },
-        fetchStatus: 'idle'
+        fetchStatus: 'idle',
+        errorMessage: null
     }
 
     it('should handle initial state', () => {
@@ -38,6 +40,7 @@ describe('moviesSlice', () => {
     it('should handle fetchMovies.pending', () => {
         const nextState = moviesSlice.reducer(initialState, fetchMovies.pending)
         expect(nextState.fetchStatus).toBe('loading')
+        expect(nextState.errorMessage).toBe(null)
     })
 
     it('should handle fetchMovies.fulfilled', () => {
@@ -47,13 +50,16 @@ describe('moviesSlice', () => {
         )
         expect(nextState.movies).toEqual(mockMovieResponse)
         expect(nextState.fetchStatus).toBe('succeeded')
+        expect(nextState.errorMessage).toBe(null)
     })
 
     it('should handle fetchMovies.rejected', () => {
+        const errorMessage = 'Failed to fetch movies'
         const nextState = moviesSlice.reducer(
             initialState,
-            fetchMovies.rejected(new Error('Failed to fetch'), 'requestId', 'endpoint')
+            fetchMovies.rejected(new Error(errorMessage), 'requestId', 'endpoint', errorMessage)
         )
         expect(nextState.fetchStatus).toBe('error')
+        expect(nextState.errorMessage).toBe(errorMessage)
     })
 }) 
