@@ -58,7 +58,21 @@ const moviesSlice = createSlice({
                 if (action.payload.page === 1) {
                     state.movies = action.payload
                 } else {
-                    state.movies.results = [...state.movies.results, ...action.payload.results]
+                    // Create a Map to track unique movie IDs
+                    const uniqueMovies = new Map<number, MovieType>()
+
+                    // Add existing movies to the Map
+                    state.movies.results.forEach(movie => {
+                        uniqueMovies.set(movie.id, movie)
+                    })
+
+                    // Add new movies to the Map (this will overwrite any duplicates)
+                    action.payload.results.forEach(movie => {
+                        uniqueMovies.set(movie.id, movie)
+                    })
+
+                    // Convert Map values back to array
+                    state.movies.results = Array.from(uniqueMovies.values())
                     state.movies.page = action.payload.page
                     state.movies.total_pages = action.payload.total_pages
                 }
