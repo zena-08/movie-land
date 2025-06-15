@@ -5,6 +5,7 @@ import { useAppSelector } from 'store'
 import { useMovies } from 'context/MovieContext'
 import starredSlice from 'store/starredSlice'
 import Movie from 'components/Movie'
+import { MESSAGES } from 'utils/constants'
 
 import styles from './starredPage.module.scss'
 
@@ -37,8 +38,18 @@ const StarredPage = () => {
     if (moviesWithFlags.length === 0) {
         return (
             <div className={`${styles['empty-cart']} ${styles['text-center']}`} role="status" tabIndex={0}>
-                <p>No starred movies match your search.</p>
-                <p>Try a different search term or <Link to='/watch-later' tabIndex={0}>view all watch later movies</Link></p>
+                {starredMovies.length === 0 ? (
+                    <>
+                        <p>{MESSAGES.NO_STARRED_MOVIES}</p>
+                        <p>Start starring movies to see them here!</p>
+                        <p>or <Link to='/watch-later' tabIndex={0}>view all watch later movies</Link></p>
+                    </>
+                ) : (
+                    <>
+                        <p>No starred movies match your search.</p>
+                        <p>Try a different search term or <Link to='/watch-later' tabIndex={0}>view all watch later movies</Link></p>
+                    </>
+                )}
             </div>
         )
     }

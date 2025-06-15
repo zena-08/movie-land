@@ -6,6 +6,7 @@ import { useMovies } from 'context/MovieContext'
 import { useAppSelector } from 'store'
 import watchLaterSlice from 'store/watchLaterSlice'
 import Movie from 'components/Movie'
+import { MESSAGES } from 'utils/constants'
 
 import styles from './watchLaterPage.module.scss'
 
@@ -38,8 +39,18 @@ const WatchLaterPage = () => {
     if (moviesWithFlags.length === 0) {
         return (
             <div className={`${styles['empty-cart']} ${styles['text-center']}`} role="status" tabIndex={0}>
-                <p>No watch later movies match your search.</p>
-                <p>Try a different search term or <Link to='/starred' tabIndex={0}>view all starred movies</Link></p>
+                {watchLaterMovies.length === 0 ? (
+                    <>
+                        <p>{MESSAGES.NO_WATCH_LATER}</p>
+                        <p>Start adding movies to your watch later list to see them here!</p>
+                        <p>or <Link to='/starred' tabIndex={0}>view all starred movies</Link></p>
+                    </>
+                ) : (
+                    <>
+                        <p>No watch later movies match your search.</p>
+                        <p>Try a different search term or <Link to='/watch-later' tabIndex={0}>view all watch later movies</Link></p>
+                    </>
+                )}
             </div>
         )
     }
