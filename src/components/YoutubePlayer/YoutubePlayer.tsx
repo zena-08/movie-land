@@ -1,12 +1,13 @@
 import { FC } from 'react'
 import ReactPlayer from 'react-player'
+import styles from './youtubePlayer.module.scss'
 
 interface YoutubePlayerProps {
     videoKey: string;
 }
 
 const YoutubePlayer: FC<YoutubePlayerProps> = ({ videoKey }) => (
-    <div role="region" aria-label="Movie trailer video player">
+    <div className={styles['video-player']} role="region" aria-label="Movie trailer video player">
         <ReactPlayer
             url={`https://www.youtube.com/watch?v=${videoKey}`}
             controls={true}
