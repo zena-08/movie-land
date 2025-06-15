@@ -1,11 +1,11 @@
-@import './styles/_variables';
+@use './styles/_variables' as vars;
 
 body {
   min-height: 100vh;
   margin: 0;
-  background: $surface-background;
+  background: vars.$surface-background;
   font-family: system-ui, sans-serif;
-  color: $text-primary;
+  color: vars.$text-primary;
 }
 
 #root {
@@ -15,7 +15,7 @@ body {
 .App {
   text-align: center;
   min-height: 100vh;
-  background-color: $surface-background;
+  background-color: vars.$surface-background;
 
   .container {
     margin-top: 4rem; // TODO: adjust if header height changes
@@ -30,24 +30,24 @@ body {
   0% {
     transform: scale(1) translateY(0);
     opacity: 0;
-    box-shadow: 0 0 0 $elevation-shadow;
+    box-shadow: 0 0 0 vars.$elevation-shadow;
   }
 
   1% {
     transform: scale(0.96) translateY(10px);
     opacity: 0;
-    box-shadow: 0 0 0 $elevation-shadow;
+    box-shadow: 0 0 0 vars.$elevation-shadow;
   }
 
   100% {
     transform: scale(1) translateY(0);
     opacity: 1;
-    box-shadow: 0 0 500px $elevation-shadow;
+    box-shadow: 0 0 500px vars.$elevation-shadow;
   }
 }
 
 .not-found {
-  color: $text-primary;
+  color: vars.$text-primary;
   text-align: center;
   margin-top: 2rem;
   font-size: 1.2rem;

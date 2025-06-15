@@ -1,10 +1,11 @@
-@import '../../styles/variables.scss';
+@use 'sass:color';
+@use '../../styles/variables.scss' as vars;
 
 .starred-page {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: $surface-background;
-    color: $text-primary;
+    background-color: vars.$surface-background;
+    color: vars.$text-primary;
 
     .header {
         font-size: 1.5rem;
@@ -23,23 +24,23 @@
         margin-top: 2rem;
 
         .btn-primary {
-            background-color: $feedback-heart;
+            background-color: vars.$feedback-heart;
             border: none;
             padding: 0.5rem 2rem;
             font-size: 1rem;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color $motion-duration $motion-easing;
+            transition: background-color vars.$motion-duration vars.$motion-easing;
 
             &:hover {
-                background-color: lighten($feedback-heart, 5%);
+                background-color: color.adjust(vars.$feedback-heart, $lightness: 5%);
             }
         }
     }
 }
 
 .empty-cart {
-    color: $text-primary;
+    color: vars.$text-primary;
     text-align: center;
     margin-top: 2rem;
 
@@ -52,9 +53,9 @@
         margin: 0.5rem 0;
 
         a {
-            color: $feedback-heart;
+            color: vars.$feedback-heart;
             text-decoration: none;
-            transition: all $motion-duration $motion-easing;
+            transition: all vars.$motion-duration vars.$motion-easing;
 
             &:hover {
                 text-decoration: underline;

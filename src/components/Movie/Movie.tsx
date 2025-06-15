@@ -61,7 +61,6 @@ const Movie: FC<MovieProps> = ({ movie, viewTrailer }) => {
         <article
             className={styles.movie}
             data-testid="movie-card"
-            role="article"
             tabIndex={0}
         >
             <img

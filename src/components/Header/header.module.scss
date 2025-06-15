@@ -1,4 +1,4 @@
-@import '../../styles/_variables';
+@use '../../styles/_variables' as vars;
 
 .header {
     position: sticky;
@@ -6,8 +6,8 @@
     z-index: 100;
     width: 100%;
     height: 64px;
-    background-color: $surface-background;
-    box-shadow: $elevation-small;
+    background-color: vars.$surface-background;
+    box-shadow: vars.$elevation-small;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,18 +21,18 @@
 
         .film-icon {
             font-size: 1.5rem;
-            color: $interactive-primary;
+            color: vars.$interactive-primary;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: $text-primary;
+            color: vars.$text-primary;
             text-decoration: none;
-            transition: color $motion-duration $motion-easing;
+            transition: color vars.$motion-duration vars.$motion-easing;
 
             &:hover {
-                color: $interactive-primary;
+                color: vars.$interactive-primary;
             }
         }
     }
@@ -46,17 +46,17 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: $text-primary;
+            color: vars.$text-primary;
             text-decoration: none;
             position: relative;
-            transition: color $motion-duration $motion-easing;
+            transition: color vars.$motion-duration vars.$motion-easing;
 
             &:hover {
-                color: $interactive-primary;
+                color: vars.$interactive-primary;
             }
 
             &.active {
-                color: $interactive-primary;
+                color: vars.$interactive-primary;
             }
 
             .icon-wrapper {
@@ -77,27 +77,27 @@
         .search-input {
             width: 100%;
             padding: 0.75rem 1rem;
-            border: 1px solid $border-default;
+            border: 1px solid vars.$border-default;
             border-radius: 8px;
-            background-color: $surface-elevated;
-            color: $text-primary;
+            background-color: vars.$surface-elevated;
+            color: vars.$text-primary;
             font-size: 1rem;
-            transition: all $motion-duration $motion-easing;
+            transition: all vars.$motion-duration vars.$motion-easing;
 
             &::placeholder {
-                color: $text-secondary;
+                color: vars.$text-secondary;
             }
 
             &:focus {
                 outline: none;
-                border-color: $interactive-primary-focus;
-                box-shadow: 0 0 0 2px $interactive-primary-focus;
+                border-color: vars.$interactive-primary-focus;
+                box-shadow: 0 0 0 2px vars.$interactive-primary-focus;
             }
         }
     }
 }
 
-@media (max-width: $breakpoint-mobile) {
+@media (max-width: vars.$breakpoint-mobile) {
     .header {
         padding: 1rem;
         flex-wrap: wrap;

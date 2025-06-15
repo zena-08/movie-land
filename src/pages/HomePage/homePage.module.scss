@@ -1,10 +1,10 @@
-@import '../../styles/_variables.scss';
+@use '../../styles/_variables.scss' as vars;
 
 .movies-page {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: $surface-background;
-    color: $text-primary;
+    background-color: vars.$surface-background;
+    color: vars.$text-primary;
 
     .movies-grid {
         display: grid;
@@ -13,7 +13,7 @@
     }
 
     .empty-cart {
-        color: $text-primary;
+        color: vars.$text-primary;
         text-align: center;
         margin-top: 2rem;
 
@@ -26,9 +26,9 @@
             margin: 0.5rem 0;
 
             a {
-                color: $feedback-heart;
+                color: vars.$feedback-heart;
                 text-decoration: none;
-                transition: all $motion-duration $motion-easing;
+                transition: all vars.$motion-duration vars.$motion-easing;
 
                 &:hover {
                     text-decoration: underline;
@@ -47,11 +47,11 @@
     .error {
         text-align: center;
         padding: 2rem;
-        color: $text-primary;
+        color: vars.$text-primary;
         font-size: 1.1rem;
     }
 
     .error {
-        color: $feedback-heart;
+        color: vars.$feedback-heart;
     }
 }
