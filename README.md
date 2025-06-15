@@ -60,14 +60,20 @@ A modern movie discovery application built with React and TypeScript. Browse mov
 ### npm
 ```sh
 npm start          # Start development server
-npm test           # Run tests
+npm test           # Run all tests
+npm test <path>    # Run tests for a specific file (e.g., npm test src/components/TrailerModal)
+npm run test:update # Update snapshots for all tests
+npm test <path> -u # Update snapshots for a specific file
 npm run build      # Build for production
 ```
 
 ### Yarn
 ```sh
 yarn start         # Start development server
-yarn test          # Run tests
+yarn test          # Run all tests
+yarn test <path>   # Run tests for a specific file (e.g., yarn test src/components/TrailerModal)
+yarn test:update   # Update snapshots for all tests
+yarn test <path> -u # Update snapshots for a specific file
 yarn build         # Build for production
 ```
 

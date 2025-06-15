@@ -28,6 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage",
+    "test:update": "react-scripts test -u",
+    "test:file:update": "react-scripts test -u",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:src": "eslint src/",
