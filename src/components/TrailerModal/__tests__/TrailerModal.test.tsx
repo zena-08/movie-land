@@ -1,114 +1,120 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { MovieProvider } from 'context/MovieContext'
 import TrailerModal from '../TrailerModal'
 
 // Mock the YouTubePlayer component
-jest.mock('components/YoutubePlayer', () => {
-    return function MockYouTubePlayer({ videoKey }: { videoKey: string }) {
-        return <div data-testid="youtube-player">Mock YouTube Player: {videoKey}</div>
-    }
-})
-
-// Mock the useAppSelector hook
-jest.mock('store', () => ({
-    useAppSelector: () => ({
-        movies: {
-            results: [],
-            page: 1,
-            total_pages: 1
-        },
-        starred: {
-            starredMovies: []
-        },
-        watchLater: {
-            watchLaterMovies: []
-        }
-    })
+const mockYoutubePlayer = jest.fn()
+jest.mock('components/YoutubePlayer', () => ({
+    __esModule: true,
+    default: (props: { videoKey: string }) => mockYoutubePlayer(props)
 }))
 
-describe('TrailerModal Component', () => {
+// Mock the MovieContext
+const mockUseMovies = jest.fn()
+jest.mock('context/MovieContext', () => ({
+    useMovies: () => mockUseMovies(),
+    MovieProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>
+}))
+
+describe('TrailerModal', () => {
+    beforeEach(() => {
+        jest.clearAllMocks()
+        mockYoutubePlayer.mockImplementation(() => <div data-testid="youtube-player">Mock Player</div>)
+    })
+
     it('should not render when isTrailerOpen is false', () => {
+        mockUseMovies.mockReturnValue({
+            videoKey: null,
+            isLoading: false,
+            error: null,
+            isTrailerOpen: false,
+            closeTrailer: jest.fn(),
+            getMovieTrailer: jest.fn()
+        })
+
         const { container } = render(
             <MovieProvider>
                 <TrailerModal />
             </MovieProvider>
         )
+
         expect(container).toBeEmptyDOMElement()
     })
 
-    it('should match snapshot when loading', () => {
-        // Mock the useMovieTrailer hook
-        jest.mock('hooks/useMovieTrailer', () => ({
-            useMovieTrailer: () => ({
-                videoKey: null,
-                isLoading: true,
-                error: null,
-                getMovieTrailer: jest.fn()
-            })
-        }))
+    it('should show loading state', () => {
+        mockUseMovies.mockReturnValue({
+            videoKey: null,
+            isLoading: true,
+            error: null,
+            isTrailerOpen: true,
+            closeTrailer: jest.fn(),
+            getMovieTrailer: jest.fn()
+        })
 
-        const { container } = render(
+        render(
             <MovieProvider>
                 <TrailerModal />
             </MovieProvider>
         )
-        expect(container).toMatchSnapshot()
+
+        expect(screen.getByText('Loading trailer...')).toBeInTheDocument()
     })
 
-    it('should match snapshot when there is an error', () => {
-        // Mock the useMovieTrailer hook
-        jest.mock('hooks/useMovieTrailer', () => ({
-            useMovieTrailer: () => ({
-                videoKey: null,
-                isLoading: false,
-                error: 'Failed to load trailer',
-                getMovieTrailer: jest.fn()
-            })
-        }))
+    it('should show error message from context', () => {
+        const errorMessage = 'Failed to fetch trailer'
+        mockUseMovies.mockReturnValue({
+            videoKey: null,
+            isLoading: false,
+            error: errorMessage,
+            isTrailerOpen: true,
+            closeTrailer: jest.fn(),
+            getMovieTrailer: jest.fn()
+        })
 
-        const { container } = render(
+        render(
             <MovieProvider>
                 <TrailerModal />
             </MovieProvider>
         )
-        expect(container).toMatchSnapshot()
+
+        expect(screen.getByText(errorMessage)).toBeInTheDocument()
     })
 
-    it('should match snapshot when no video key is available', () => {
-        // Mock the useMovieTrailer hook
-        jest.mock('hooks/useMovieTrailer', () => ({
-            useMovieTrailer: () => ({
-                videoKey: null,
-                isLoading: false,
-                error: null,
-                getMovieTrailer: jest.fn()
-            })
-        }))
+    it('should show no trailer message when no video key is available', () => {
+        mockUseMovies.mockReturnValue({
+            videoKey: null,
+            isLoading: false,
+            error: null,
+            isTrailerOpen: true,
+            closeTrailer: jest.fn(),
+            getMovieTrailer: jest.fn()
+        })
 
-        const { container } = render(
+        render(
             <MovieProvider>
                 <TrailerModal />
             </MovieProvider>
         )
-        expect(container).toMatchSnapshot()
+
+        expect(screen.getByText('No trailer available. Try another movie.')).toBeInTheDocument()
     })
 
-    it('should match snapshot when video key is available', () => {
-        // Mock the useMovieTrailer hook
-        jest.mock('hooks/useMovieTrailer', () => ({
-            useMovieTrailer: () => ({
-                videoKey: 'test-video-key',
-                isLoading: false,
-                error: null,
-                getMovieTrailer: jest.fn()
-            })
-        }))
+    it('should render YouTubePlayer when video key is available', () => {
+        mockUseMovies.mockReturnValue({
+            videoKey: 'test-video-key',
+            isLoading: false,
+            error: null,
+            isTrailerOpen: true,
+            closeTrailer: jest.fn(),
+            getMovieTrailer: jest.fn()
+        })
 
-        const { container } = render(
+        render(
             <MovieProvider>
                 <TrailerModal />
             </MovieProvider>
         )
-        expect(container).toMatchSnapshot()
+
+        expect(screen.getByTestId('youtube-player')).toBeInTheDocument()
     })
 }) 

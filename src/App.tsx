@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import 'reactjs-popup/dist/index.css'
 import { MovieProvider } from 'context/MovieContext'
 import Header from 'components/Header'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import { MESSAGES } from 'utils/constants'
 import './app.scss'
 
@@ -32,17 +33,19 @@ const AppRoutes: FC = () => (
 
 const App: FC = () => {
     return (
-        <MovieProvider>
-            <div className="App">
-                <Header />
-                <div className="container">
-                    <AppRoutes />
+        <ErrorBoundary>
+            <MovieProvider>
+                <div className="App">
+                    <Header />
+                    <div className="container">
+                        <AppRoutes />
+                    </div>
+                    <Suspense fallback={null}>
+                        <TrailerModal />
+                    </Suspense>
                 </div>
-                <Suspense fallback={null}>
-                    <TrailerModal />
-                </Suspense>
-            </div>
-        </MovieProvider>
+            </MovieProvider>
+        </ErrorBoundary>
     )
 }
 

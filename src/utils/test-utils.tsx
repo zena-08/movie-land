@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react'
-import { render } from '@testing-library/react'
+import { render, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
@@ -8,7 +8,6 @@ import { MovieProvider } from '../context/MovieContext'
 import moviesSlice from '../store/moviesSlice'
 import starredSlice from '../store/starredSlice'
 import watchLaterSlice from '../store/watchLaterSlice'
-import { RenderOptions } from '@testing-library/react'
 import { RootState } from 'store'
 
 const rootReducer = combineReducers({

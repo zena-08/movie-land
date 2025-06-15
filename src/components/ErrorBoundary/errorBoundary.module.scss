@@ -1,0 +1,48 @@
+@import '../../styles/_variables.scss';
+
+.error-boundary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 2rem;
+    text-align: center;
+    background-color: $surface-elevated;
+    border-radius: 8px;
+    margin: 2rem auto;
+    max-width: 600px;
+    box-shadow: $elevation-small;
+
+    h2 {
+        color: $text-primary;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    p {
+        color: $text-secondary;
+        margin-bottom: 2rem;
+        line-height: 1.5;
+    }
+
+    .retry-button {
+        background-color: $interactive-primary;
+        color: $text-primary;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color $motion-duration $motion-easing;
+
+        &:hover {
+            background-color: darken($interactive-primary, 10%);
+        }
+
+        &:focus {
+            outline: 2px solid $interactive-primary-focus;
+            outline-offset: 2px;
+        }
+    }
+}

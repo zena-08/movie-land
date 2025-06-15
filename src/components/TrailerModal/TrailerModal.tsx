@@ -1,10 +1,23 @@
 import { FC } from 'react'
 import { useMovies } from 'context/MovieContext'
 import YouTubePlayer from 'components/YoutubePlayer'
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary'
 import { CloseIcon } from 'icons'
 import styles from './trailerModal.module.scss'
 
-const TrailerModal = () => {
+const VideoPlayerWithErrorBoundary: FC<{ videoKey: string }> = ({ videoKey }) => (
+    <ErrorBoundary
+        fallback={
+            <div className={styles['trailer-message']}>
+                <h6>Failed to load video player. Please try again.</h6>
+            </div>
+        }
+    >
+        <YouTubePlayer videoKey={videoKey} />
+    </ErrorBoundary>
+)
+
+const TrailerModal: FC = () => {
     const { videoKey, isLoading, error, isTrailerOpen, closeTrailer } = useMovies()
 
     if (!isTrailerOpen) return null;
@@ -35,7 +48,7 @@ const TrailerModal = () => {
                         </div>
                     )}
 
-                    {videoKey && <YouTubePlayer videoKey={videoKey} />}
+                    {videoKey && <VideoPlayerWithErrorBoundary videoKey={videoKey} />}
                 </div>
             </div>
         </div>

@@ -7,13 +7,14 @@ import { useInfiniteScroll } from 'hooks/useInfiniteScroll'
 import { AppDispatch, useAppSelector } from 'store'
 import { fetchMovies } from 'store/moviesSlice'
 import { ENDPOINT_DISCOVER, ENDPOINT_SEARCH } from 'utils/constants'
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary'
 
 import LoadingState from 'components/LoadingState'
 import Movie from 'components/Movie'
 
 import styles from './homePage.module.scss'
 
-const HomePage = () => {
+const HomePageContent = () => {
     const dispatch = useDispatch<AppDispatch>()
     const { movies: movieData, getMovieTrailer } = useMovies()
     const { fetchStatus } = useAppSelector((state) => state.movies)
@@ -65,6 +66,14 @@ const HomePage = () => {
             <div ref={observerTarget} className={styles['observer-element']} />
             {isFetching && <LoadingState message="Loading more movies..." />}
         </div>
+    )
+}
+
+const HomePage = () => {
+    return (
+        <ErrorBoundary>
+            <HomePageContent />
+        </ErrorBoundary>
     )
 }
 
