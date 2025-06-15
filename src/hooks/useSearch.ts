@@ -5,6 +5,7 @@ import { fetchMovies } from 'store/moviesSlice'
 import { ENDPOINT_SEARCH, ENDPOINT_DISCOVER } from 'utils/constants'
 import { AppDispatch } from 'store'
 import { useDebounce } from 'hooks/useDebounce'
+import { sanitizeSearchQuery } from 'utils/sanitize'
 
 export const useSearch = (delay = 300) => {
     const dispatch = useDispatch<AppDispatch>()
@@ -21,16 +22,18 @@ export const useSearch = (delay = 300) => {
 
     // Handle debounced search
     useEffect(() => {
-        if (debouncedSearchTerm.trim() !== searchTerm.trim()) {
+        const sanitizedTerm = sanitizeSearchQuery(debouncedSearchTerm)
+
+        if (sanitizedTerm !== sanitizeSearchQuery(searchTerm)) {
             return
         }
 
-        if (debouncedSearchTerm.trim() !== '') {
-            setSearchParams({ search: debouncedSearchTerm.trim() })
+        if (sanitizedTerm !== '') {
+            setSearchParams({ search: sanitizedTerm })
             if (location.pathname === '/') {
-                dispatch(fetchMovies(`${ENDPOINT_SEARCH}&query=${encodeURIComponent(debouncedSearchTerm.trim())}`))
+                dispatch(fetchMovies(`${ENDPOINT_SEARCH}&query=${encodeURIComponent(sanitizedTerm)}`))
             }
-        } else if (searchTerm.trim() === '') {
+        } else if (sanitizeSearchQuery(searchTerm) === '') {
             setSearchParams({})
             if (location.pathname === '/') {
                 dispatch(fetchMovies(ENDPOINT_DISCOVER))
