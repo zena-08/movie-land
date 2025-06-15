@@ -3,8 +3,8 @@
 .movies-page {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: $background-dark;
-    color: $text-light;
+    background-color: $surface-background;
+    color: $text-primary;
 
     .movies-grid {
         display: grid;
@@ -13,7 +13,7 @@
     }
 
     .empty-cart {
-        color: $text-light;
+        color: $text-primary;
         text-align: center;
         margin-top: 2rem;
 
@@ -26,9 +26,9 @@
             margin: 0.5rem 0;
 
             a {
-                color: $heart-color;
+                color: $feedback-heart;
                 text-decoration: none;
-                transition: all $transition-speed $transition-ease;
+                transition: all $motion-duration $motion-easing;
 
                 &:hover {
                     text-decoration: underline;
@@ -47,11 +47,11 @@
     .error {
         text-align: center;
         padding: 2rem;
-        color: $text-light;
+        color: $text-primary;
         font-size: 1.1rem;
     }
 
     .error {
-        color: $heart-color;
+        color: $feedback-heart;
     }
 }

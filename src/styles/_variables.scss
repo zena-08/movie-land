@@ -1,35 +1,32 @@
-// Brand Colors
-$primary-color: #00bfff;
-$primary-color-light: rgba($primary-color, 0.2);
+// Interactive Elements
+$interactive-primary: #00bfff;
+$interactive-primary-focus: rgba($interactive-primary, 0.2);
 
-// Background Colors
-$background-dark: rgba(15, 15, 30, 0.95);
-$background-light: #1c1c2e;
-$background-overlay: rgba(0, 0, 0, 0.1);
+// Surface Colors
+$surface-background: rgba(15, 15, 30, 0.95);
+$surface-elevated: #1c1c2e;
 
-// Text Colors
-$text-color: #fff;
-$text-light: #fff;
-$text-muted: #888;
+// Typography Colors
+$text-primary: #fff;
+$text-secondary: #888;
 
 // Border Colors
-$border-color: #333;
-$border-focus: $primary-color;
+$border-default: #333;
 
-// Status Colors
-$star-color: #ffd700;
-$heart-color: #ff4d6d;
+// Feedback Colors
+$feedback-star: #ffd700;
+$feedback-heart: #ff4d6d;
 
-// Shadows
-$shadow-color: rgba(0, 0, 0, 0.1);
-$box-shadow-sm: 0 2px 4px $shadow-color;
-$box-shadow-md: 0 4px 6px $shadow-color;
+// Elevation
+$elevation-shadow: rgba(0, 0, 0, 0.1);
+$elevation-small: 0 2px 4px $elevation-shadow;
+$elevation-medium: 0 4px 6px $elevation-shadow; // For future use
 
-// Transitions
-$transition-speed: 0.2s;
-$transition-ease: ease;
+// Motion
+$motion-duration: 0.2s;
+$motion-easing: ease;
 
-// Breakpoints
-$mobile: 768px;
-$tablet: 1024px;
-$desktop: 1280px;
+// Layout
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px; // For future use
+$breakpoint-desktop: 1280px; // For future use

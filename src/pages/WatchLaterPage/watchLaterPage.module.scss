@@ -3,8 +3,8 @@
 .watch-later-page {
     max-width: 1200px;
     margin: 0 auto;
-    background-color: $background-dark;
-    color: $text-light;
+    background-color: $surface-background;
+    color: $text-primary;
 
     .header {
         font-size: 1.5rem;
@@ -23,23 +23,23 @@
         margin-top: 2rem;
 
         .btn-primary {
-            background-color: $heart-color;
+            background-color: $feedback-heart;
             border: none;
             padding: 0.5rem 2rem;
             font-size: 1rem;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color $transition-speed $transition-ease;
+            transition: background-color $motion-duration $motion-easing;
 
             &:hover {
-                background-color: lighten($heart-color, 5%);
+                background-color: lighten($feedback-heart, 5%);
             }
         }
     }
 }
 
 .empty-cart {
-    color: $text-light;
+    color: $text-primary;
     text-align: center;
     margin-top: 2rem;
 
@@ -52,9 +52,9 @@
         margin: 0.5rem 0;
 
         a {
-            color: $heart-color;
+            color: $feedback-heart;
             text-decoration: none;
-            transition: all $transition-speed $transition-ease;
+            transition: all $motion-duration $motion-easing;
 
             &:hover {
                 text-decoration: underline;

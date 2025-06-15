@@ -6,8 +6,8 @@
     z-index: 100;
     width: 100%;
     height: 64px;
-    background-color: $background-dark;
-    box-shadow: $box-shadow-sm;
+    background-color: $surface-background;
+    box-shadow: $elevation-small;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,18 +21,18 @@
 
         .film-icon {
             font-size: 1.5rem;
-            color: $primary-color;
+            color: $interactive-primary;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: $text-light;
+            color: $text-primary;
             text-decoration: none;
-            transition: color $transition-speed $transition-ease;
+            transition: color $motion-duration $motion-easing;
 
             &:hover {
-                color: $primary-color;
+                color: $interactive-primary;
             }
         }
     }
@@ -46,17 +46,17 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: $text-light;
+            color: $text-primary;
             text-decoration: none;
             position: relative;
-            transition: color $transition-speed $transition-ease;
+            transition: color $motion-duration $motion-easing;
 
             &:hover {
-                color: $primary-color;
+                color: $interactive-primary;
             }
 
             &.active {
-                color: $primary-color;
+                color: $interactive-primary;
             }
 
             .icon-wrapper {
@@ -77,27 +77,27 @@
         .search-input {
             width: 100%;
             padding: 0.75rem 1rem;
-            border: 1px solid $border-color;
+            border: 1px solid $border-default;
             border-radius: 8px;
-            background-color: $background-light;
-            color: $text-light;
+            background-color: $surface-elevated;
+            color: $text-primary;
             font-size: 1rem;
-            transition: all $transition-speed $transition-ease;
+            transition: all $motion-duration $motion-easing;
 
             &::placeholder {
-                color: $text-muted;
+                color: $text-secondary;
             }
 
             &:focus {
                 outline: none;
-                border-color: $border-focus;
-                box-shadow: 0 0 0 2px $primary-color-light;
+                border-color: $interactive-primary-focus;
+                box-shadow: 0 0 0 2px $interactive-primary-focus;
             }
         }
     }
 }
 
-@media (max-width: $mobile) {
+@media (max-width: $breakpoint-mobile) {
     .header {
         padding: 1rem;
         flex-wrap: wrap;

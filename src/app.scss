@@ -3,9 +3,9 @@
 body {
   min-height: 100vh;
   margin: 0;
-  background: $background-dark;
+  background: $surface-background;
   font-family: system-ui, sans-serif;
-  color: $text-light;
+  color: $text-primary;
 }
 
 #root {
@@ -15,10 +15,10 @@ body {
 .App {
   text-align: center;
   min-height: 100vh;
-  background-color: $background-dark;
+  background-color: $surface-background;
 
   .container {
-    margin-top: 4rem; // adjust if header height changes
+    margin-top: 4rem; // TODO: adjust if header height changes
     padding: 1rem 2rem;
     max-width: 1200px;
     margin-left: auto;
@@ -30,24 +30,24 @@ body {
   0% {
     transform: scale(1) translateY(0);
     opacity: 0;
-    box-shadow: 0 0 0 $shadow-color;
+    box-shadow: 0 0 0 $elevation-shadow;
   }
 
   1% {
     transform: scale(0.96) translateY(10px);
     opacity: 0;
-    box-shadow: 0 0 0 $shadow-color;
+    box-shadow: 0 0 0 $elevation-shadow;
   }
 
   100% {
     transform: scale(1) translateY(0);
     opacity: 1;
-    box-shadow: 0 0 500px $shadow-color;
+    box-shadow: 0 0 500px $elevation-shadow;
   }
 }
 
 .not-found {
-  color: $text-light;
+  color: $text-primary;
   text-align: center;
   margin-top: 2rem;
   font-size: 1.2rem;
