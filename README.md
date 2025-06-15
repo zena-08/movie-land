@@ -2,6 +2,11 @@
 
 A modern movie discovery application built with React and TypeScript. Browse movies, watch trailers, and create your personal watchlist.
 
+## 📋 Code Review
+
+[Code Review Summary](./CODE_REVIEW.md).
+
+
 ## Features ✨
 
 - **Search & Discover**: Find movies from TMDB's extensive database with debounced search for smooth performance.
@@ -116,8 +121,7 @@ src/
 - [ ] Switch from CRA to Vite to fix security issues and make the app faster and easier to maintain.
 - [ ] Improve color contrast to make the app more accessible (see: 🔗 [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)).
 - [ ] Remove duplicate styles and icons by putting shared ones in a single file.
-- [ ] Add E2E tests with Playwright to catch bugs and test user flows.
-```
+- [ ] Add integration tests and E2E tests with Playwright to catch bugs and test user flows.
 
 ## Acknowledgments 🙏
 
